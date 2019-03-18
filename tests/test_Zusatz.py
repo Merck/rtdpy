@@ -1,0 +1,32 @@
+import numpy as np
+import pytest
+from scipy import special
+
+import rtdpy as rtd
+
+rtol = 1e-3
+atol = 1e-5
+
+DT = 0.05
+TIME_END = 60000
+
+
+def mrt(b, c):
+    return b * (c / (1 + c))**(-1 / c) * special.gamma((-1 + c) / c)
+
+
+def sigma2(b, c):
+    return b**2 * (c / (1 + c))**(-2 / c)\
+            * (special.gamma((-2 + c) / c) - special.gamma((-1 + c) / c)**2)
+
+
+# TODO: test inputs are in valid range
+
+
+@pytest.mark.parametrize("b", [50, 100])
+@pytest.mark.parametrize("c", [3, 5, 7])
+def test1(b, c):
+    a = rtd.Zusatz(b, c, dt=DT, time_end=TIME_END)
+    assert(np.isclose(a.integral(), 1, rtol=rtol, atol=atol))
+    assert(np.isclose(a.mrt(), mrt(b, c), rtol=rtol, atol=atol))
+    assert(np.isclose(a.sigma(), sigma2(b, c), rtol=rtol*10, atol=atol))

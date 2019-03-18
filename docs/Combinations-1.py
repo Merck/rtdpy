@@ -1,0 +1,18 @@
+import matplotlib.pyplot as plt
+import rtdpy
+a = rtdpy.Ncstr(tau=1, n=1, dt=.01, time_end=15)
+b = rtdpy.Pfr(tau=10, dt=.01, time_end=15)
+c = rtdpy.Elist([a, b])
+plt.plot(a.time, a.exitage, label="CSTR")
+plt.plot(b.time, b.exitage, label="PFR")
+plt.ylim(0, 1.1)
+plt.title('Original RTD models')
+plt.xlabel('Time')
+plt.ylabel('Exit Age Function')
+plt.legend()
+plt.figure()
+plt.plot(c.time, c.exitage)
+plt.xlabel('Time')
+plt.ylabel('Exit Age Function')
+plt.title('Combination of models')
+plt.show()
