@@ -12,12 +12,16 @@ setup(
     license='LICENSE',
     author='Matthew Flamm',
     author_email='matthew.flamm@merck.com',
+    url='https://merck.github.io/rtdpy',
     description='Python package for residence time distribution analysis',
     long_description=long_description,
     long_description_content_type='text/markdown',
     install_requires=['numpy',
-                      'scipy',],
+                      'scipy'],
     classifiers=[
         "Development Status :: 4 - Beta",
-        "Programming Language :: Python :: 3",],
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Topic :: Scientific/Engineering",
+        ],
 )
