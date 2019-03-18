@@ -1,0 +1,337 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Combinations of Models &#8212; rtdpy 0.3 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Zusatz" href="Zusatz.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">rtdpy</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="NCstr.html">Tanks in Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pfr.html">Plug Flow Reactor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AxialDispersion_cc.html">Axial Dispersion closed-closed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AxialDispersion_oo.html">Axial Dispersion open-open</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zusatz.html">Zusatz</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Combinations of Models</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Zusatz.html" title="previous chapter">Zusatz</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-rtdpy.elist">
+<span id="combinations-of-models"></span><h1>Combinations of Models<a class="headerlink" href="#module-rtdpy.elist" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="rtdpy.elist.Elist">
+<em class="property">class </em><code class="descclassname">rtdpy.elist.</code><code class="descname">Elist</code><span class="sig-paren">(</span><em>elist</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/elist.html#Elist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.elist.Elist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rtdpy.rtd.RTD</span></code></p>
+<p>Create RTD model from a list of Rtd objects.  Combinations of models
+are convolved together. <a class="reference internal" href="#r4563ff084249-1" id="id1">[1]</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>elist</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list</span></dt>
+<dd><p class="first last">List of Rtd objects.
+All objects must have same <cite>dt</cite> and <cite>time_end</cite>.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r4563ff084249-1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> Levenspiel O. (1999) “Chemical Reaction Engineering: Third Edition”
+John Wiley &amp; Sons, Inc.</td></tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rtdpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Ncstr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mi">01</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Pfr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mi">01</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Elist</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">exitage</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;CSTR&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">exitage</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;PFR&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Original RTD models&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Exit Age Function&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">exitage</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Exit Age Function&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Combination of models&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure">
+<img alt="_images/Combinations-1_00.png" src="_images/Combinations-1_00.png" />
+</div>
+<div class="figure">
+<img alt="_images/Combinations-1_01.png" src="_images/Combinations-1_01.png" />
+</div>
+<dl class="attribute">
+<dt id="rtdpy.elist.Elist.dt">
+<code class="descname">dt</code><a class="headerlink" href="#rtdpy.elist.Elist.dt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time step for RTD</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.elist.Elist.elist">
+<code class="descname">elist</code><a class="headerlink" href="#rtdpy.elist.Elist.elist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.elist.Elist.exitage">
+<code class="descname">exitage</code><a class="headerlink" href="#rtdpy.elist.Elist.exitage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exit age distribution for RTD</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.elist.Elist.exitage_norm">
+<code class="descname">exitage_norm</code><a class="headerlink" href="#rtdpy.elist.Elist.exitage_norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalized Exit Age Distribtion for RTD</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.elist.Elist.frequencyresponse">
+<code class="descname">frequencyresponse</code><span class="sig-paren">(</span><em>omegas</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.elist.Elist.frequencyresponse" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>omegas</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span></dt>
+<dd><p class="first last">frequencies at which to evaluate magnitude response</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>magnitude</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span></dt>
+<dd><p class="first last">frequency magnitude response at omegas</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.elist.Elist.funnelplot">
+<code class="descname">funnelplot</code><span class="sig-paren">(</span><em>times</em>, <em>disturbances</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.elist.Elist.funnelplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return maximum output signal due to square disturbances.</p>
+<p>Also returns meshgrid for times and disturbance inputs
+for ease of plotting.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>times</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array_like, size m</span></dt>
+<dd><p class="first last">Times to determine funnelplot</p>
+</dd>
+<dt><strong>disturbances</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array_like, size n</span></dt>
+<dd><p class="first last">Disturbance magnitudes</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>x</strong> <span class="classifier-delimiter">:</span> <span class="classifier">2D meshgrid size (mxn)</span></dt>
+<dd><p class="first last">times</p>
+</dd>
+<dt><strong>y</strong> <span class="classifier-delimiter">:</span> <span class="classifier">2D meshgrid size (mxn)</span></dt>
+<dd><p class="first last">disturbances</p>
+</dd>
+<dt><strong>response</strong> <span class="classifier-delimiter">:</span> <span class="classifier">2D meshgrid size (mxn)</span></dt>
+<dd><p class="first last">maximum response at (x,y)</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="rtdpy.elist.Elist.get_elist_dt">
+<em class="property">static </em><code class="descname">get_elist_dt</code><span class="sig-paren">(</span><em>elist</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/elist.html#Elist.get_elist_dt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.elist.Elist.get_elist_dt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="rtdpy.elist.Elist.get_elist_time_end">
+<em class="property">static </em><code class="descname">get_elist_time_end</code><span class="sig-paren">(</span><em>elist</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/elist.html#Elist.get_elist_time_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.elist.Elist.get_elist_time_end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.elist.Elist.integral">
+<code class="descname">integral</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.elist.Elist.integral" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integral of RTD</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.elist.Elist.mrt">
+<code class="descname">mrt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.elist.Elist.mrt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean residence time of RTD</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.elist.Elist.output">
+<code class="descname">output</code><span class="sig-paren">(</span><em>inputtime</em>, <em>inputsignal</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.elist.Elist.output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convolves input signal with RTD</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>inputtime</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span></dt>
+<dd><p class="first last">Times of input signal, which must have same <cite>dt</cite> as RTD.  Size m</p>
+</dd>
+<dt><strong>inputsignal</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span></dt>
+<dd><p class="first last">Input signal. Size n</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>outputsignal</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarrary</span></dt>
+<dd><p class="first last">Output signal at same <cite>dt</cite>.  Size m + n -1</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.elist.Elist.sigma">
+<code class="descname">sigma</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.elist.Elist.sigma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variance of RTD</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.elist.Elist.stepresponse">
+<code class="descname">stepresponse</code><a class="headerlink" href="#rtdpy.elist.Elist.stepresponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step respose of RTD</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.elist.Elist.stepresponse_norm">
+<code class="descname">stepresponse_norm</code><a class="headerlink" href="#rtdpy.elist.Elist.stepresponse_norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step respose of RTD</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.elist.Elist.time">
+<code class="descname">time</code><a class="headerlink" href="#rtdpy.elist.Elist.time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time points for exitage function</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.elist.Elist.time_end">
+<code class="descname">time_end</code><a class="headerlink" href="#rtdpy.elist.Elist.time_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Last time point for RTD</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Combinations.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

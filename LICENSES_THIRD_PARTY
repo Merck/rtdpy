@@ -1,0 +1,7 @@
+--------------------------------------------------
+Third party dependencies listed by License type
+[Format: name (Python module) Type - URL]
+--------------------------------------------------
+
+* NumPy (numpy) BSD-3 - https://github.com/numpy/numpy/blob/master/LICENSE.txt
+* SciPy (scipy) BSD-3 - https://github.com/scipy/scipy/blob/master/LICENSE.txt

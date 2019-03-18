@@ -1,0 +1,285 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>rtdpy documentation &#8212; rtdpy 0.3 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tanks in Series" href="NCstr.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">rtdpy</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NCstr.html">Tanks in Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pfr.html">Plug Flow Reactor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AxialDispersion_cc.html">Axial Dispersion closed-closed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AxialDispersion_oo.html">Axial Dispersion open-open</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zusatz.html">Zusatz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Combinations.html">Combinations of Models</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="NCstr.html" title="next chapter">Tanks in Series</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="rtdpy-documentation">
+<h1>rtdpy documentation<a class="headerlink" href="#rtdpy-documentation" title="Permalink to this headline">¶</a></h1>
+<p>rtdpy is a python package for residence time distribution (RTD) analysis.
+All models and functionality are tested against analytical solutions. <a class="footnote-reference" href="#f1" id="id1">[1]</a></p>
+<div class="section" id="included-rtd-models">
+<h2>Included RTD models:<a class="headerlink" href="#included-rtd-models" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NCstr.html">Tanks in Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pfr.html">Plug Flow Reactor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AxialDispersion_cc.html">Axial Dispersion closed-closed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AxialDispersion_oo.html">Axial Dispersion open-open</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zusatz.html">Zusatz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Combinations.html">Combinations of Models</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="functionality">
+<h2>Functionality<a class="headerlink" href="#functionality" title="Permalink to this headline">¶</a></h2>
+<p>RTD models are easy to create</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">]:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Ncstr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mo">001</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">exitage</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;n={}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Exit Age Function&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Impulse Response&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure">
+<img alt="_images/index-1.png" src="_images/index-1.png" />
+</div>
+<p>Step responses are immediately available</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">]:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Ncstr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mo">001</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">stepresponse</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;n={}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Exit Age Function&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Step Response&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure">
+<img alt="_images/index-2.png" src="_images/index-2.png" />
+</div>
+<p>Combining two models together into a new model is simple</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Ncstr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mo">001</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Pfr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mo">001</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Elist</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">exitage</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Exit Age Function&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Combined RTD Model&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure">
+<img alt="_images/index-3.png" src="_images/index-3.png" />
+</div>
+<p>Integral, mean residence time, and variance are easily obtained</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Ncstr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mo">001</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="gp">In [2]: </span><span class="n">integral</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">integral</span><span class="p">()</span>
+
+<span class="gp">In [3]: </span><span class="n">mrt</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">mrt</span><span class="p">()</span>
+
+<span class="gp">In [4]: </span><span class="n">sigma</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">sigma</span><span class="p">()</span>
+
+<span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span> <span class="n">f</span><span class="s1">&#39;Integral            = {integral: .2f}</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="gp">   ...: </span>      <span class="o">+</span><span class="n">f</span><span class="s1">&#39;Mean residence time = {mrt: .2f}</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="gp">   ...: </span>      <span class="o">+</span><span class="n">f</span><span class="s1">&#39;Variance            = {sigma: .2f}&#39;</span><span class="p">)</span>
+<span class="gp">   ...: </span>
+<span class="go">Integral            =  1.00</span>
+<span class="go">Mean residence time =  1.00</span>
+<span class="go">Variance            =  0.50</span>
+</pre></div>
+</div>
+<p>We can predict output signals from input signals</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Ncstr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">signal_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">input_signal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">signal_time</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="n">input_signal</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">30</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">output_signal</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">signal_time</span><span class="p">,</span> <span class="n">input_signal</span><span class="p">)</span>
+
+<span class="c1"># predicted output_signal is longer than input_signal</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">signal_time</span><span class="p">,</span> <span class="n">input_signal</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Input Signal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">signal_time</span><span class="p">,</span> <span class="n">output_signal</span><span class="p">[:</span><span class="n">signal_time</span><span class="o">.</span><span class="n">size</span><span class="p">],</span>
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Output Signal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure">
+<img alt="_images/index-4.png" src="_images/index-4.png" />
+</div>
+<p>Obtain the frequency magnitude damping</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Ncstr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mo">01</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">omegas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">mag</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">frequencyresponse</span><span class="p">(</span><span class="n">omegas</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">omegas</span><span class="p">,</span> <span class="n">mag</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Magnitude&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure">
+<img alt="_images/index-5.png" src="_images/index-5.png" />
+</div>
+<p>Make a funnelplot for input disturbances</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Ncstr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mo">01</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">disturbances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">response</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">funnelplot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">disturbances</span><span class="p">)</span>
+
+<span class="n">cs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.0f</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time of Disturbance&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Magnitude of Disturbance&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure">
+<img alt="_images/index-6.png" src="_images/index-6.png" />
+</div>
+<p>Fit RTD measurement data</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">optimize</span>
+
+<span class="c1"># Generate noisy data from NCSTR system with tau=10 and n=2</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Ncstr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">xdata</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">time</span>
+<span class="n">noisefactor</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">ydata</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">exitage</span> \
+    <span class="o">+</span> <span class="p">(</span><span class="n">noisefactor</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Ncstr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="n">tau</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">exitage</span>
+
+<span class="c1"># Give initial guess of tau=5 and n=4</span>
+<span class="n">popt</span><span class="p">,</span> <span class="n">pcov</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">curve_fit</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+                                <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Impulse Experiment&#39;</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Ncstr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="n">popt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n</span><span class="o">=</span><span class="n">popt</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dt</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">exitage</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;RTD Fit&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;tau={popt[0]: .2f}, n={popt[1]: .2f}&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure">
+<img alt="_images/index-7.png" src="_images/index-7.png" />
+</div>
+<p>Author: Matthew Flamm</p>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Care needs to be taken to have sufficient resolution in time
+for all models.  For Axial Dispersion closed-closed model,
+very low (&lt;0.1) and very high (&gt;1000) reactor Peclet numbers
+may need special care.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

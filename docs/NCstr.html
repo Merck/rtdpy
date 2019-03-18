@@ -1,0 +1,337 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Tanks in Series &#8212; rtdpy 0.3 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Plug Flow Reactor" href="Pfr.html" />
+    <link rel="prev" title="rtdpy documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">rtdpy</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tanks in Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pfr.html">Plug Flow Reactor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AxialDispersion_cc.html">Axial Dispersion closed-closed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AxialDispersion_oo.html">Axial Dispersion open-open</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zusatz.html">Zusatz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Combinations.html">Combinations of Models</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">rtdpy documentation</a></li>
+      <li>Next: <a href="Pfr.html" title="next chapter">Plug Flow Reactor</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="tanks-in-series">
+<h1>Tanks in Series<a class="headerlink" href="#tanks-in-series" title="Permalink to this headline">¶</a></h1>
+<p>N-CSTR (Continuously Stirred Tank Reactor) or Tanks in Series model</p>
+<span class="target" id="module-rtdpy.ncstr"></span><dl class="class">
+<dt id="rtdpy.ncstr.Ncstr">
+<em class="property">class </em><code class="descclassname">rtdpy.ncstr.</code><code class="descname">Ncstr</code><span class="sig-paren">(</span><em>n</em>, <em>tau</em>, <em>dt</em>, <em>time_end</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/ncstr.html#Ncstr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.ncstr.Ncstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rtdpy.rtd.RTD</span></code></p>
+<p>Create N CSTR in series (N-CSTR) AKA Tank in Series
+Residence Time Distribution (RTD) model. <a class="reference internal" href="#re2a12cb51601-1" id="id1">[1]</a></p>
+<div class="math notranslate nohighlight">
+\[E(t) = \frac{1}{\tau}\left(\frac{t}{\tau}\right)^{n-1}
+\frac{n^n}{\left(n-1\right)!}
+\text{exp}\left[\frac{-nt}{\tau}\right]\]</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>tau</strong> <span class="classifier-delimiter">:</span> <span class="classifier">scalar</span></dt>
+<dd><p class="first last">Mean residence time of <strong>all</strong> CSTRs. <code class="docutils literal notranslate"><span class="pre">tau&gt;0</span></code></p>
+</dd>
+<dt><strong>n</strong> <span class="classifier-delimiter">:</span> <span class="classifier">scalar</span></dt>
+<dd><p class="first last">Number of CSTRs. Can be a real number <code class="docutils literal notranslate"><span class="pre">n&gt;0</span></code></p>
+</dd>
+<dt><strong>dt</strong> <span class="classifier-delimiter">:</span> <span class="classifier">scalar</span></dt>
+<dd><p class="first last">Time step for RTD. <code class="docutils literal notranslate"><span class="pre">dt&gt;0</span></code></p>
+</dd>
+<dt><strong>time_end</strong> <span class="classifier-delimiter">:</span> <span class="classifier">scalar</span></dt>
+<dd><p class="first last">End time for RTD. <code class="docutils literal notranslate"><span class="pre">time_end&gt;0</span></code></p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="re2a12cb51601-1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> Levenspiel O. (1999) “Chemical Reaction Engineering: Third Edition”
+John Wiley &amp; Sons, Inc.</td></tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rtdpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Ncstr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mi">01</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">exitage</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;n=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Exit Age Function&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure">
+<img alt="_images/NCstr-1.png" src="_images/NCstr-1.png" />
+</div>
+<dl class="attribute">
+<dt id="rtdpy.ncstr.Ncstr.dt">
+<code class="descname">dt</code><a class="headerlink" href="#rtdpy.ncstr.Ncstr.dt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time step for RTD</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.ncstr.Ncstr.exitage">
+<code class="descname">exitage</code><a class="headerlink" href="#rtdpy.ncstr.Ncstr.exitage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exit age distribution for RTD</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.ncstr.Ncstr.exitage_norm">
+<code class="descname">exitage_norm</code><a class="headerlink" href="#rtdpy.ncstr.Ncstr.exitage_norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalized Exit Age Distribtion for RTD</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.ncstr.Ncstr.frequencyresponse">
+<code class="descname">frequencyresponse</code><span class="sig-paren">(</span><em>omegas</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ncstr.Ncstr.frequencyresponse" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>omegas</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span></dt>
+<dd><p class="first last">frequencies at which to evaluate magnitude response</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>magnitude</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span></dt>
+<dd><p class="first last">frequency magnitude response at omegas</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.ncstr.Ncstr.funnelplot">
+<code class="descname">funnelplot</code><span class="sig-paren">(</span><em>times</em>, <em>disturbances</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ncstr.Ncstr.funnelplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return maximum output signal due to square disturbances.</p>
+<p>Also returns meshgrid for times and disturbance inputs
+for ease of plotting.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>times</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array_like, size m</span></dt>
+<dd><p class="first last">Times to determine funnelplot</p>
+</dd>
+<dt><strong>disturbances</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array_like, size n</span></dt>
+<dd><p class="first last">Disturbance magnitudes</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>x</strong> <span class="classifier-delimiter">:</span> <span class="classifier">2D meshgrid size (mxn)</span></dt>
+<dd><p class="first last">times</p>
+</dd>
+<dt><strong>y</strong> <span class="classifier-delimiter">:</span> <span class="classifier">2D meshgrid size (mxn)</span></dt>
+<dd><p class="first last">disturbances</p>
+</dd>
+<dt><strong>response</strong> <span class="classifier-delimiter">:</span> <span class="classifier">2D meshgrid size (mxn)</span></dt>
+<dd><p class="first last">maximum response at (x,y)</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.ncstr.Ncstr.integral">
+<code class="descname">integral</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ncstr.Ncstr.integral" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integral of RTD</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.ncstr.Ncstr.mrt">
+<code class="descname">mrt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ncstr.Ncstr.mrt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean residence time of RTD</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.ncstr.Ncstr.n">
+<code class="descname">n</code><a class="headerlink" href="#rtdpy.ncstr.Ncstr.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of CSTRS in series</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.ncstr.Ncstr.output">
+<code class="descname">output</code><span class="sig-paren">(</span><em>inputtime</em>, <em>inputsignal</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ncstr.Ncstr.output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convolves input signal with RTD</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>inputtime</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span></dt>
+<dd><p class="first last">Times of input signal, which must have same <cite>dt</cite> as RTD.  Size m</p>
+</dd>
+<dt><strong>inputsignal</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span></dt>
+<dd><p class="first last">Input signal. Size n</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>outputsignal</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarrary</span></dt>
+<dd><p class="first last">Output signal at same <cite>dt</cite>.  Size m + n -1</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.ncstr.Ncstr.sigma">
+<code class="descname">sigma</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ncstr.Ncstr.sigma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variance of RTD</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.ncstr.Ncstr.stepresponse">
+<code class="descname">stepresponse</code><a class="headerlink" href="#rtdpy.ncstr.Ncstr.stepresponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step respose of RTD</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.ncstr.Ncstr.stepresponse_norm">
+<code class="descname">stepresponse_norm</code><a class="headerlink" href="#rtdpy.ncstr.Ncstr.stepresponse_norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step respose of RTD</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.ncstr.Ncstr.tau">
+<code class="descname">tau</code><a class="headerlink" href="#rtdpy.ncstr.Ncstr.tau" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean Residence Time of <strong>all</strong> tanks combined</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.ncstr.Ncstr.time">
+<code class="descname">time</code><a class="headerlink" href="#rtdpy.ncstr.Ncstr.time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time points for exitage function</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.ncstr.Ncstr.time_end">
+<code class="descname">time_end</code><a class="headerlink" href="#rtdpy.ncstr.Ncstr.time_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Last time point for RTD</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/NCstr.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

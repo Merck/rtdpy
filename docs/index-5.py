@@ -1,0 +1,8 @@
+a = rtdpy.Ncstr(tau=10, n=2, dt=.01, time_end=200)
+omegas = np.logspace(-2, 1, 1000)
+mag = a.frequencyresponse(omegas)
+plt.plot(omegas, mag)
+plt.xscale('log')
+plt.yscale('log')
+plt.ylabel('Magnitude')
+plt.xlabel('Frequency')

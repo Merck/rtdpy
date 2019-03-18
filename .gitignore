@@ -1,0 +1,11 @@
+.idea/*
+*__pycache__*
+tests/.pytest_cache
+tests/.pytest_cache/
+.pytest_cache/
+.coverage
+tests/__pycache__
+*egg*
+lib/
+*.pyc
+scripts/
