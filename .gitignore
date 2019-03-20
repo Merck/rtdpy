@@ -9,3 +9,5 @@ tests/__pycache__
 lib/
 *.pyc
 scripts/
+dist/
+
