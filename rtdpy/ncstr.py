@@ -85,3 +85,8 @@ class Ncstr(RTD):
             raise RTDInputError("tau less than zero")
         self._tau = tau
         self._exitage = self._calc_exitage()
+
+    def __repr__(self):
+        """Returns representation of object"""
+        return ("Ncstr(n={}, tau={}, dt={}, time_end={})".format(
+            self.n, self.tau, self.dt, self.time_end))

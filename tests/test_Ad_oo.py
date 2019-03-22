@@ -85,3 +85,11 @@ def test_AD_equivalence(peclet):
     assert(np.isclose(a.integral(), b.integral(), rtol=rtol, atol=atol))
     assert(np.isclose(a.mrt(), b.mrt(), rtol=1e-2, atol=atol))
     assert(np.isclose(a.sigma(), b.sigma(), rtol=5e-2, atol=atol))
+
+
+def test_repr():
+    a = rtd.AD_oo(tau=1, peclet=100, dt=DT, time_end=TIME_END)
+    b = eval("rtd."+repr(a))
+    assert np.isclose(a.integral(), b.integral(), rtol=rtol, atol=atol)
+    assert np.isclose(a.mrt(), b.mrt(), rtol=rtol, atol=atol)
+    assert np.isclose(a.sigma(), b.sigma(), rtol=rtol, atol=atol)

@@ -74,3 +74,8 @@ class Pfr(RTD):
             raise RTDInputError("tau less than 0")
         self._tau = tau
         self._exitage = self._calc_exitage()
+
+    def __repr__(self):
+        """Returns representation of object"""
+        return ("Pfr(tau={}, dt={}, time_end={})".format(
+            self.tau, self.dt, self.time_end))

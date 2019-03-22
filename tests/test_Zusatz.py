@@ -30,3 +30,11 @@ def test1(b, c):
     assert(np.isclose(a.integral(), 1, rtol=rtol, atol=atol))
     assert(np.isclose(a.mrt(), mrt(b, c), rtol=rtol, atol=atol))
     assert(np.isclose(a.sigma(), sigma2(b, c), rtol=rtol*10, atol=atol))
+
+
+def test_repr():
+    a = rtd.Zusatz(b=50, c=5, dt=DT, time_end=TIME_END)
+    b = eval("rtd."+repr(a))
+    assert np.isclose(a.integral(), b.integral(), rtol=rtol, atol=atol)
+    assert np.isclose(a.mrt(), b.mrt(), rtol=rtol, atol=atol)
+    assert np.isclose(a.sigma(), b.sigma(), rtol=rtol, atol=atol)
