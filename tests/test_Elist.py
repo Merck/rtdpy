@@ -47,6 +47,7 @@ def test_iteration():
     for i, j in zip(elist, d):
         assert i == j
 
+
 @pytest.mark.parametrize("tau_cstr", [10])
 @pytest.mark.parametrize("tau_pfr", [1, 10, 50])
 def test1(tau_cstr, tau_pfr):
@@ -90,3 +91,13 @@ def test_lotsoflist_1(n):
     assert np.isclose(f.integral(), 1, rtol=rtol*10, atol=atol)
     assert np.isclose(f.mrt(), (i+1) * 10, rtol=rtol*10, atol=atol)
     assert np.isclose(f.sigma(), (i+1) * 10 ** 2, rtol=rtol*10, atol=atol)
+
+
+def test_repr():
+    from rtdpy import Ncstr # noqa needed for eval of repr
+    a1 = rtd.Ncstr(n=2, tau=1, dt=DT, time_end=TIME_END)
+    a = rtd.Elist([a1, a1])
+    b = eval("rtd."+repr(a))
+    assert np.isclose(a.integral(), b.integral(), rtol=rtol, atol=atol)
+    assert np.isclose(a.mrt(), b.mrt(), rtol=rtol, atol=atol)
+    assert np.isclose(a.sigma(), b.sigma(), rtol=rtol, atol=atol)

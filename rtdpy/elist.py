@@ -105,3 +105,7 @@ class Elist(RTD):
             raise StopIteration
         self._index += 1
         return result
+
+    def __repr__(self):
+        """Returns representation of object"""
+        return ("Elist(elist={})".format(self.elist))

@@ -83,3 +83,11 @@ def test_low_pecletr(pecletr):
     assert(np.isclose(a.mrt(), analytic_mrt(tau), rtol=rtol*10, atol=atol))
     assert(np.isclose(a.sigma(), analytic_sigma2(tau, pecletr),
                       rtol=rtol*10, atol=atol))
+
+
+def test_repr():
+    a = rtd.AD_cc(tau=1, peclet=100, dt=DT, time_end=TIME_END)
+    b = eval("rtd."+repr(a))
+    assert np.isclose(a.integral(), b.integral(), rtol=rtol, atol=atol)
+    assert np.isclose(a.mrt(), b.mrt(), rtol=rtol, atol=atol)
+    assert np.isclose(a.sigma(), b.sigma(), rtol=rtol, atol=atol)

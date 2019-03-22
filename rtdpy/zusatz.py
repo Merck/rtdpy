@@ -101,3 +101,8 @@ class Zusatz(RTD):
         self._c = c
         self._a = self._calc_a()
         self._exitage = self._calc_exitage()
+
+    def __repr__(self):
+        """Returns representation of object"""
+        return ("Zusatz(b={}, c={}, dt={}, time_end={})".format(
+            self.b, self.c, self.dt, self.time_end))

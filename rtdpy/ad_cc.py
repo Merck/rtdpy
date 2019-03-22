@@ -70,8 +70,8 @@ class AD_cc(RTD):
     .. [1] Pearson J.R.A. (1959) A note on the "Danckwerts" boundary conditions
            for continuous flow reactors. "Chemical Engineering Science", 6,
            281-284.
-    .. [2] Danckwerts P.V. (1953) Continuous flow systems: Distribution of Residence
-           Times. "Chemical Engineering Science", 2, 1-13.
+    .. [2] Danckwerts P.V. (1953) Continuous flow systems: Distribution of
+           Residence Times. "Chemical Engineering Science", 2, 1-13.
 
     Examples
     --------
@@ -159,3 +159,10 @@ class AD_cc(RTD):
             raise RTDInputError('tau less than zero')
         self._tau = tau
         self._exitage = self._calc_exitage()
+
+    def __repr__(self):
+        """Returns representation of object"""
+        return ("AD_cc(tau={}, peclet={}, dt={}, time_end={}, nx={}, a={}"
+                + ", rtol={}, atol={}, max_step={})").format(
+                    self.tau, self.peclet, self.dt, self.time_end, self.nx,
+                    self.a, self.rtol, self.atol, self.max_step)

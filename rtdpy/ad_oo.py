@@ -121,3 +121,8 @@ class AD_oo(RTD):
         Mean Residence Time for open-open system is different than L/U
         """
         return self._tau_oo
+
+    def __repr__(self):
+        """Returns representation of object"""
+        return ("AD_oo(tau={}, peclet={}, dt={}, time_end={})".format(
+            self.tau, self.peclet, self.dt, self.time_end))
