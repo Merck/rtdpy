@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Zusatz &#8212; rtdpy 0.4 documentation</title>
+    <title>Axial Dispersion Large Peclet &#8212; rtdpy 0.4 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -17,8 +17,8 @@
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Combinations of Models" href="Combinations.html" />
-    <link rel="prev" title="Axial Dispersion Large Peclet" href="AxialDispersion_hi_peclet.html" />
+    <link rel="next" title="Zusatz" href="Zusatz.html" />
+    <link rel="prev" title="Axial Dispersion open-open" href="AxialDispersion_oo.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -45,8 +45,8 @@
 <li class="toctree-l1"><a class="reference internal" href="Pfr.html">Plug Flow Reactor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AxialDispersion_cc.html">Axial Dispersion closed-closed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AxialDispersion_oo.html">Axial Dispersion open-open</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AxialDispersion_hi_peclet.html">Axial Dispersion Large Peclet</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Zusatz</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Axial Dispersion Large Peclet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zusatz.html">Zusatz</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Combinations.html">Combinations of Models</a></li>
 </ul>
 
@@ -54,8 +54,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="AxialDispersion_hi_peclet.html" title="previous chapter">Axial Dispersion Large Peclet</a></li>
-      <li>Next: <a href="Combinations.html" title="next chapter">Combinations of Models</a></li>
+      <li>Previous: <a href="AxialDispersion_oo.html" title="previous chapter">Axial Dispersion open-open</a></li>
+      <li>Next: <a href="Zusatz.html" title="next chapter">Zusatz</a></li>
   </ul></li>
 </ul>
 </div>
@@ -87,34 +87,36 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-rtdpy.zusatz">
-<span id="zusatz"></span><h1>Zusatz<a class="headerlink" href="#module-rtdpy.zusatz" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-rtdpy.ad_hi_peclet">
+<span id="axial-dispersion-large-peclet"></span><h1>Axial Dispersion Large Peclet<a class="headerlink" href="#module-rtdpy.ad_hi_peclet" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="rtdpy.zusatz.Zusatz">
-<em class="property">class </em><code class="descclassname">rtdpy.zusatz.</code><code class="descname">Zusatz</code><span class="sig-paren">(</span><em>b</em>, <em>c</em>, <em>dt</em>, <em>time_end</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/zusatz.html#Zusatz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.zusatz.Zusatz" title="Permalink to this definition">¶</a></dt>
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet">
+<em class="property">class </em><code class="descclassname">rtdpy.ad_hi_peclet.</code><code class="descname">AD_hi_peclet</code><span class="sig-paren">(</span><em>tau</em>, <em>peclet</em>, <em>dt</em>, <em>time_end</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/ad_hi_peclet.html#AD_hi_peclet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rtdpy.rtd.RTD</span></code></p>
-<p>Create Zusatz Residence Time Distribution (RTD) model. <a class="reference internal" href="#r2fa91e0fc818-1" id="id1">[1]</a>
-Parameter a is chosen such that the integral is 1.</p>
+<p>Create Axial Dispersion with small amount of Dispersion (Pe&gt;100)
+Residence Time Distribution (RTD) model. <a class="reference internal" href="#re893d1bde722-1" id="id1">[1]</a></p>
 <div class="math notranslate nohighlight">
-\[\begin{split}E(t) = a t^{-c-1} b^{c+1}
-\text{exp}\left[\left(b^c t^{-c} -1\right)\frac{-c-1}{c}\right]
-\\a = \frac{1+c}{b\, \text{exp}\left[1+1/c\right]}\end{split}\]</div>
+\[E(t) = \frac{\sqrt{Pe}}{2\tau\sqrt{\pi}}
+\text{exp}\left[-\frac{Pe \left(1-t/\tau\right)^2}
+{4}\right]\]</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>b</strong> <span class="classifier-delimiter">:</span> <span class="classifier">scalar</span></dt>
-<dd><p class="first last">b Zusatz parameter</p>
+<dt><strong>tau</strong> <span class="classifier-delimiter">:</span> <span class="classifier">scalar</span></dt>
+<dd><p class="first last">L/U</p>
 </dd>
-<dt><strong>c</strong> <span class="classifier-delimiter">:</span> <span class="classifier">scalar</span></dt>
-<dd><p class="first last">c Zusatz parameter</p>
+<dt><strong>peclet</strong> <span class="classifier-delimiter">:</span> <span class="classifier">scalar</span></dt>
+<dd><p class="first last">Reactor Peclet number (L*U/D)</p>
 </dd>
 <dt><strong>dt</strong> <span class="classifier-delimiter">:</span> <span class="classifier">scalar</span></dt>
-<dd><p class="first last">Time step for RTD. <code class="docutils literal notranslate"><span class="pre">dt&gt;0</span></code></p>
+<dd><p class="first last">Time step for RTD.
+<code class="docutils literal notranslate"><span class="pre">dt&gt;0</span></code></p>
 </dd>
 <dt><strong>time_end</strong> <span class="classifier-delimiter">:</span> <span class="classifier">scalar</span></dt>
-<dd><p class="first last">End time for RTD. <code class="docutils literal notranslate"><span class="pre">time_end&gt;0</span></code></p>
+<dd><p class="first last">End time for RTD.
+<code class="docutils literal notranslate"><span class="pre">time_end&gt;0</span></code></p>
 </dd>
 </dl>
 </td>
@@ -122,20 +124,19 @@ Parameter a is chosen such that the integral is 1.</p>
 </tbody>
 </table>
 <p class="rubric">References</p>
-<table class="docutils citation" frame="void" id="r2fa91e0fc818-1" rules="none">
+<table class="docutils citation" frame="void" id="re893d1bde722-1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> Poulesquen A., et al. (2003) A study of residence time distribution
-in co-rotating twin-screw extruders.  Part II: Experimental
-validation. “Polymer Engineering and Science”, 43(12), 1849-1862.</td></tr>
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> Levenspiel O. (1999) “Chemical Reaction Engineering: Third Edition”
+John Wiley &amp; Sons, Inc.</td></tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rtdpy</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">]:</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Zusatz</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mi">01</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">exitage</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;c=</span><span class="si">{c}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">pe</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">AD_hi_peclet</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">peclet</span><span class="o">=</span><span class="n">pe</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mi">01</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">exitage</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;peclet=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pe</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Exit Age Function&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
@@ -143,47 +144,29 @@ validation. “Polymer Engineering and Science”, 43(12), 1849-1862.</td></tr>
 </pre></div>
 </div>
 <div class="figure">
-<img alt="_images/Zusatz-1.png" src="_images/Zusatz-1.png" />
+<img alt="_images/AxialDispersion_hi_peclet-1.png" src="_images/AxialDispersion_hi_peclet-1.png" />
 </div>
 <dl class="attribute">
-<dt id="rtdpy.zusatz.Zusatz.a">
-<code class="descname">a</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.a" title="Permalink to this definition">¶</a></dt>
-<dd><p>a parameter that normalizes RTD to 1</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rtdpy.zusatz.Zusatz.b">
-<code class="descname">b</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.b" title="Permalink to this definition">¶</a></dt>
-<dd><p>b parameter</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rtdpy.zusatz.Zusatz.c">
-<code class="descname">c</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.c" title="Permalink to this definition">¶</a></dt>
-<dd><p>c parameter</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rtdpy.zusatz.Zusatz.dt">
-<code class="descname">dt</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.dt" title="Permalink to this definition">¶</a></dt>
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.dt">
+<code class="descname">dt</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.dt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Time step for RTD</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rtdpy.zusatz.Zusatz.exitage">
-<code class="descname">exitage</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.exitage" title="Permalink to this definition">¶</a></dt>
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.exitage">
+<code class="descname">exitage</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.exitage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exit age distribution for RTD</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rtdpy.zusatz.Zusatz.exitage_norm">
-<code class="descname">exitage_norm</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.exitage_norm" title="Permalink to this definition">¶</a></dt>
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.exitage_norm">
+<code class="descname">exitage_norm</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.exitage_norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalized Exit Age Distribtion for RTD</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rtdpy.zusatz.Zusatz.frequencyresponse">
-<code class="descname">frequencyresponse</code><span class="sig-paren">(</span><em>omegas</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.frequencyresponse" title="Permalink to this definition">¶</a></dt>
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.frequencyresponse">
+<code class="descname">frequencyresponse</code><span class="sig-paren">(</span><em>omegas</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.frequencyresponse" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -207,10 +190,10 @@ validation. “Polymer Engineering and Science”, 43(12), 1849-1862.</td></tr>
 </dd></dl>
 
 <dl class="method">
-<dt id="rtdpy.zusatz.Zusatz.funnelplot">
-<code class="descname">funnelplot</code><span class="sig-paren">(</span><em>times</em>, <em>disturbances</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.funnelplot" title="Permalink to this definition">¶</a></dt>
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.funnelplot">
+<code class="descname">funnelplot</code><span class="sig-paren">(</span><em>times</em>, <em>disturbances</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.funnelplot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return maximum output signal due to square disturbances.</p>
-<p>Uses method from <a class="reference internal" href="#rbe6c1c3442ca-garcia" id="id3">[Garcia]</a> .
+<p>Uses method from <a class="reference internal" href="#rd215f3d397a7-garcia" id="id3">[Garcia]</a> .
 Also returns meshgrid for times and disturbance inputs
 for ease of plotting.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -243,7 +226,7 @@ for ease of plotting.</p>
 </tbody>
 </table>
 <p class="rubric">References</p>
-<table class="docutils citation" frame="void" id="rbe6c1c3442ca-garcia" rules="none">
+<table class="docutils citation" frame="void" id="rd215f3d397a7-garcia" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[Garcia]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> Garcia-Munoz S., Butterbaugh A., Leavesley I.,
@@ -256,20 +239,20 @@ pharmaceutical tablets: An industrial perspective.
 </dd></dl>
 
 <dl class="method">
-<dt id="rtdpy.zusatz.Zusatz.integral">
-<code class="descname">integral</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.integral" title="Permalink to this definition">¶</a></dt>
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.integral">
+<code class="descname">integral</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.integral" title="Permalink to this definition">¶</a></dt>
 <dd><p>Integral of RTD</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rtdpy.zusatz.Zusatz.mrt">
-<code class="descname">mrt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.mrt" title="Permalink to this definition">¶</a></dt>
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.mrt">
+<code class="descname">mrt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.mrt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mean residence time of RTD</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rtdpy.zusatz.Zusatz.output">
-<code class="descname">output</code><span class="sig-paren">(</span><em>inputtime</em>, <em>inputsignal</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.output" title="Permalink to this definition">¶</a></dt>
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.output">
+<code class="descname">output</code><span class="sig-paren">(</span><em>inputtime</em>, <em>inputsignal</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convolves input signal with RTD</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -296,33 +279,48 @@ pharmaceutical tablets: An industrial perspective.
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.peclet">
+<code class="descname">peclet</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.peclet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
-<dt id="rtdpy.zusatz.Zusatz.sigma">
-<code class="descname">sigma</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.sigma" title="Permalink to this definition">¶</a></dt>
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.sigma">
+<code class="descname">sigma</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.sigma" title="Permalink to this definition">¶</a></dt>
 <dd><p>Variance of RTD</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rtdpy.zusatz.Zusatz.stepresponse">
-<code class="descname">stepresponse</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.stepresponse" title="Permalink to this definition">¶</a></dt>
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.stepresponse">
+<code class="descname">stepresponse</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.stepresponse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step respose of RTD</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rtdpy.zusatz.Zusatz.stepresponse_norm">
-<code class="descname">stepresponse_norm</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.stepresponse_norm" title="Permalink to this definition">¶</a></dt>
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.stepresponse_norm">
+<code class="descname">stepresponse_norm</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.stepresponse_norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalized step respose of RTD</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rtdpy.zusatz.Zusatz.time">
-<code class="descname">time</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.time" title="Permalink to this definition">¶</a></dt>
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.tau">
+<code class="descname">tau</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.tau" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.theta">
+<code class="descname">theta</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.theta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.time">
+<code class="descname">time</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Time points for exitage function</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rtdpy.zusatz.Zusatz.time_end">
-<code class="descname">time_end</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.time_end" title="Permalink to this definition">¶</a></dt>
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.time_end">
+<code class="descname">time_end</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.time_end" title="Permalink to this definition">¶</a></dt>
 <dd><p>Last time point for RTD</p>
 </dd></dl>
 
@@ -345,7 +343,7 @@ pharmaceutical tablets: An industrial perspective.
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="_sources/Zusatz.rst.txt"
+      <a href="_sources/AxialDispersion_hi_peclet.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

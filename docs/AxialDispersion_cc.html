@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Axial Dispersion closed-closed &#8212; rtdpy 0.3 documentation</title>
+    <title>Axial Dispersion closed-closed &#8212; rtdpy 0.4 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -45,6 +45,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Pfr.html">Plug Flow Reactor</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Axial Dispersion closed-closed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AxialDispersion_oo.html">Axial Dispersion open-open</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AxialDispersion_hi_peclet.html">Axial Dispersion Large Peclet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Zusatz.html">Zusatz</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Combinations.html">Combinations of Models</a></li>
 </ul>
@@ -170,8 +171,8 @@ for continuous flow reactors. “Chemical Engineering Science”, 6,
 <table class="docutils citation" frame="void" id="ra6f86343c980-2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> Danckwerts P.V. (1953) Continuous flow systems: Distribution of Residence
-Times. “Chemical Engineering Science”, 2, 1-13.</td></tr>
+<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> Danckwerts P.V. (1953) Continuous flow systems: Distribution of
+Residence Times. “Chemical Engineering Science”, 2, 1-13.</td></tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
@@ -236,7 +237,8 @@ Times. “Chemical Engineering Science”, 2, 1-13.</td></tr>
 <dt id="rtdpy.ad_cc.AD_cc.funnelplot">
 <code class="descname">funnelplot</code><span class="sig-paren">(</span><em>times</em>, <em>disturbances</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_cc.AD_cc.funnelplot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return maximum output signal due to square disturbances.</p>
-<p>Also returns meshgrid for times and disturbance inputs
+<p>Uses method from <a class="reference internal" href="#r3d2677e09d49-garcia" id="id5">[Garcia]</a> .
+Also returns meshgrid for times and disturbance inputs
 for ease of plotting.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -265,6 +267,17 @@ for ease of plotting.</p>
 </dl>
 </td>
 </tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r3d2677e09d49-garcia" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Garcia]</td><td><em>(<a class="fn-backref" href="#id5">1</a>, <a class="fn-backref" href="#id6">2</a>)</em> Garcia-Munoz S., Butterbaugh A., Leavesley I.,
+Manley L.F., Slade D., Bermingham S. (2018)
+A flowhseet model for the development of a continuous process for
+pharmaceutical tablets: An industrial perspective.
+“AIChE Journal”, 64(2), 511-525.</td></tr>
 </tbody>
 </table>
 </dd></dl>
@@ -331,7 +344,7 @@ for ease of plotting.</p>
 <dl class="attribute">
 <dt id="rtdpy.ad_cc.AD_cc.stepresponse_norm">
 <code class="descname">stepresponse_norm</code><a class="headerlink" href="#rtdpy.ad_cc.AD_cc.stepresponse_norm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Step respose of RTD</p>
+<dd><p>Normalized step respose of RTD</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -367,7 +380,7 @@ for ease of plotting.</p>
       &copy;Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
