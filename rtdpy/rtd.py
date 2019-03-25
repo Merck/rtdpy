@@ -129,7 +129,7 @@ class RTD:
         """
         Return maximum output signal due to square disturbances.
 
-        Uses method from Garcia et al. [1]_
+        Uses method from [Garcia]_ .
         Also returns meshgrid for times and disturbance inputs
         for ease of plotting.
 
@@ -151,10 +151,11 @@ class RTD:
 
         References
         ----------
-        [1] Garcia-Munoz S., Butterbaugh A., Leavesley I., Manley L.F.,
-            Slade D., Bermingham S. (2018) A flowhseet model for the
-            development of a continuous process for pharmaceutical tablets:
-            An industrial perspective. "AIChE Journal", 64(2), 511-525.
+        .. [Garcia] Garcia-Munoz S., Butterbaugh A., Leavesley I.,
+                    Manley L.F., Slade D., Bermingham S. (2018)
+                    A flowhseet model for the development of a continuous process for
+                    pharmaceutical tablets: An industrial perspective.
+                    "AIChE Journal", 64(2), 511-525.
         """
         n = times.size
         m = disturbances.size

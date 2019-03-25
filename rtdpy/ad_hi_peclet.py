@@ -9,7 +9,7 @@ class AD_hi_peclet(RTD):
 
     .. math::
 
-        E(t) = \\frac{\\sqrt{Pe}}{2\\tau\\sqrt{\\pi}
+        E(t) = \\frac{\\sqrt{Pe}}{2\\tau\\sqrt{\\pi}}
         \\text{exp}\\left[-\\frac{Pe \\left(1-t/\\tau\\right)^2}
         {4}\\right]
 

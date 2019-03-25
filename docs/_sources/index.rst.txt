@@ -4,6 +4,8 @@ rtdpy documentation
 rtdpy is a python package for residence time distribution (RTD) analysis.
 All models and functionality are tested against analytical solutions. [#f1]_
 
+`GitHub repository <https://github.com/Merck/rtdpy>`_
+
 Included RTD models:
 --------------------
 .. toctree::
@@ -13,6 +15,7 @@ Included RTD models:
    Pfr
    AxialDispersion_cc
    AxialDispersion_oo
+   AxialDispersion_hi_peclet
    Zusatz
    Combinations
 
