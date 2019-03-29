@@ -24,5 +24,6 @@ pip install rtdpy
 ```
 
 Author: Matthew Flamm
+
 Email: <matthew.flamm@merck.com>
 
