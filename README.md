@@ -21,7 +21,8 @@ plt.title('Impulse Responses')
 ## Installation
 ```bash
 pip install rtdpy
+```
 
 Author: Matthew Flamm
 Email: <matthew.flamm@merck.com>
-```
+
