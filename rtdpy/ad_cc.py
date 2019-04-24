@@ -104,30 +104,24 @@ class AD_cc(RTD):
         self.tau = tau
         self.peclet = peclet
 
-    def _calc_pde(self):
+    def _calc_pde(self, t_max):
         """Calculates the dimensionless pde result"""
-        t_max = 10
+
         t_span = (0, t_max)
-
         x = np.linspace(0, 1, self.nx)
-
         u0 = np.zeros(self.nx)
-
         h = x[1] - x[0]
-
         j = jac(0, 0, self.peclet, h, self.nx, self.a)
 
         sol = integrate.solve_ivp(
             fun=lambda t, y: dudt(t, y, self.peclet, h, self.nx, self.a),
             jac=j, t_span=t_span, y0=u0, method="BDF", dense_output=True,
             rtol=self.rtol, atol=self.atol, max_step=self.max_step)
-
         return sol
 
     def _calc_exitage(self):
         """calculates exitage function"""
         try:
-
             output = self._pde_result.sol(self.time / self.tau)[-1] / self.tau
         except AttributeError:
             output = None
@@ -144,7 +138,7 @@ class AD_cc(RTD):
         if peclet <= 0:
             raise RTDInputError('peclet less than zero')
         self._peclet = peclet
-        self._pde_result = self._calc_pde()
+        self._pde_result = self._calc_pde(self.time_end / self.tau)
         self._exitage = self._calc_exitage()
 
     @property

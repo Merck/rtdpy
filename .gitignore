@@ -6,7 +6,7 @@ tests/.pytest_cache/
 .coverage
 tests/__pycache__
 *egg*
-lib/
+lib*/
 *.pyc
 scripts/
 dist/

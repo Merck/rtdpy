@@ -72,8 +72,6 @@ def test_high_pecletr_adjusted(pecletr):
                       rtol=rtol*10, atol=atol))
 
 
-# TODO: fails at longer times than above
-@pytest.mark.xfail
 @pytest.mark.parametrize("pecletr", [1])
 def test_low_pecletr(pecletr):
     tau = 1
