@@ -1,12 +1,10 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>rtdpy.ad_oo &#8212; rtdpy 0.4 documentation</title>
+    <meta charset="utf-8" />
+    <title>rtdpy.ad_oo &#8212; rtdpy 0.5 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -44,6 +42,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../AxialDispersion_cc.html">Axial Dispersion closed-closed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../AxialDispersion_oo.html">Axial Dispersion open-open</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../AxialDispersion_hi_peclet.html">Axial Dispersion Large Peclet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Convection.html">Convection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Zusatz.html">Zusatz</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Combinations.html">Combinations of Models</a></li>
 </ul>
@@ -58,13 +57,11 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -105,15 +102,22 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    tau : scalar</span>
-<span class="sd">        L/U, not the mean residence time, see tau_oo</span>
+<span class="sd">        L/U, not the mean residence time, see tau_oo.</span>
+<span class="sd">        ``tau&gt;0``</span>
 <span class="sd">    peclet : scalar</span>
-<span class="sd">        Reactor Peclet number (L*U/D)</span>
+<span class="sd">        Reactor Peclet number (L*U/D).</span>
+<span class="sd">        ``peclet&gt;0``</span>
 <span class="sd">    dt : scalar</span>
 <span class="sd">        Time step for RTD.</span>
 <span class="sd">        ``dt&gt;0``</span>
 <span class="sd">    time_end : scalar</span>
 <span class="sd">        End time for RTD.</span>
 <span class="sd">        ``time_end&gt;0``</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The mean residence time for an open-open system is not tau.</span>
+<span class="sd">    Mean residence time is :math:`\\tau_{oo} = (1+2/Pe)*\\tau`.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -127,7 +131,7 @@
 <span class="sd">    &gt;&gt;&gt; import rtdpy</span>
 <span class="sd">    &gt;&gt;&gt; for pe in [10, 100]:</span>
 <span class="sd">    ...     a = rtdpy.AD_oo(tau=1, peclet=pe, dt=.01, time_end=3)</span>
-<span class="sd">    ...     plt.plot(a.time, a.exitage, label=&quot;peclet={}&quot;.format(pe))</span>
+<span class="sd">    ...     plt.plot(a.time, a.exitage, label=f&quot;peclet={pe}&quot;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.xlabel(&#39;Time&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.ylabel(&#39;Exit Age Function&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.legend()</span>
@@ -137,78 +141,50 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">peclet</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">time_end</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">time_end</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_peclet</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_theta</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tau_oo</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">tau</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span><span class="s1">&#39;tau less than zero&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="n">tau</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">tau</span> <span class="o">=</span> <span class="n">tau</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">peclet</span> <span class="o">=</span> <span class="n">peclet</span>
+        <span class="k">if</span> <span class="n">peclet</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span><span class="s1">&#39;peclet less than zero&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_peclet</span> <span class="o">=</span> <span class="n">peclet</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_exitage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_exitage</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_calc_exitage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">theta_safe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span> \
-                <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">4.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">theta_safe</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">peclet</span><span class="p">)</span> \
-                <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">theta_safe</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-                         <span class="o">/</span> <span class="p">(</span><span class="mf">4.</span> <span class="o">*</span> <span class="n">theta_safe</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">peclet</span><span class="p">))</span>
-
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">output</span>
-
-    <span class="k">def</span> <span class="nf">_calc_theta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span>
-        <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">output</span>
-
-    <span class="k">def</span> <span class="nf">_calc_tau_oo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="mf">2.</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">peclet</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span>
-        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">theta_safe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span>
+                  <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">4.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">theta_safe</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">peclet</span><span class="p">)</span>
+                  <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
+                      <span class="o">-</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">theta_safe</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+                      <span class="o">/</span> <span class="p">(</span><span class="mf">4.</span> <span class="o">*</span> <span class="n">theta_safe</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">peclet</span><span class="p">)))</span>
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">theta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theta</span>
+        <span class="sd">&quot;&quot;&quot;Dimensionless time.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">peclet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Peclet number.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_peclet</span>
-
-    <span class="nd">@peclet</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">peclet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peclet</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">peclet</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span><span class="s1">&#39;peclet less than zero&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_peclet</span> <span class="o">=</span> <span class="n">peclet</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tau_oo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_tau_oo</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_theta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_theta</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_exitage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_exitage</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">tau</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Tau.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span>
-
-    <span class="nd">@tau</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">tau</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tau</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">tau</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span><span class="s1">&#39;tau less than zero&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="n">tau</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tau_oo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_tau_oo</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_theta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_theta</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_exitage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_exitage</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">tau_oo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Mean Residence Time for open-open system is different than L/U</span>
+<span class="sd">        Mean Residence Time for open-open system.  Not tau for open-open.</span>
+
+<span class="sd">        .. math:</span>
+
+<span class="sd">            tau_oo = (1 + 2/Pe) tau</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tau_oo</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="mf">2.</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">peclet</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns representation of object&quot;&quot;&quot;</span>
@@ -226,7 +202,7 @@
       &copy;Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

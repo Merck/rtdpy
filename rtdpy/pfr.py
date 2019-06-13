@@ -1,3 +1,5 @@
+"""PFR model."""
+
 import numpy as np
 
 from rtdpy.rtd import RTD, RTDInputError
@@ -38,44 +40,35 @@ class Pfr(RTD):
     """
     def __init__(self, tau, dt, time_end):
         super().__init__(dt, time_end)
-        self._tau = None
-        self._exitage = None
 
-        self.tau = tau
+        if tau <= 0:
+            raise RTDInputError("tau less than 0")
+        if tau >= self.time[-1]:
+            raise RTDInputError(
+                "PFR lag is at or beyond end of supplied time")
+        self._tau = tau
+
+        self._exitage = self._calc_exitage()
 
     def _calc_exitage(self):
-        try:
-            t = self.time
-            if self.tau >= self.time[-1]:
-                raise RTDInputError(
-                    'PFR lag is at or beyond end of supplied time')
+        """Calculate exitage."""
 
-            a = np.zeros(t.size)
-            idx = np.nonzero(t <= self.tau)
-            idxfirst = idx[0][-1]
-            if idxfirst == t.size:
-                raise RTDInputError('PFR lag is at end of supplied time')
+        a = np.zeros_like(self.time)
+        idx = np.nonzero(self.time <= self.tau)
+        idxfirst = idx[0][-1]
+        if idxfirst == self.time.size:
+            raise RTDInputError('PFR lag is at end of supplied time')
 
-            a[idxfirst] = (t[idxfirst + 1] - self.tau) / self.dt / self.dt
-            a[idxfirst + 1] = (self.tau - t[idxfirst]) / self.dt / self.dt
-
-            output = a
-        except AttributeError:
-            output = None
-        return output
+        a[idxfirst] = (self.time[idxfirst + 1] - self.tau) / self.dt / self.dt
+        a[idxfirst + 1] = (self.tau - self.time[idxfirst]) / self.dt / self.dt
+        return a
 
     @property
     def tau(self):
+        """Tau. L/U"""
         return self._tau
 
-    @tau.setter
-    def tau(self, tau):
-        if tau <= 0:
-            raise RTDInputError("tau less than 0")
-        self._tau = tau
-        self._exitage = self._calc_exitage()
-
     def __repr__(self):
-        """Returns representation of object"""
+        """Representation of object"""
         return ("Pfr(tau={}, dt={}, time_end={})".format(
             self.tau, self.dt, self.time_end))

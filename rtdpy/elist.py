@@ -42,38 +42,46 @@ class Elist(RTD):
     """
 
     def __init__(self, elist):
-        self._index = 0
-        self._elist = None
+        """Elist model."""
 
-        dt = self.get_elist_dt(elist)
+        self._index = 0  # to make iterable
 
-        time_end = self.get_elist_time_end(elist)
+        self._validate_rtd(elist)
+        dt = self._get_elist_dt(elist)
+        time_end = self._get_elist_time_end(elist)
 
         super().__init__(dt=dt, time_end=time_end)
 
-        self.elist = elist
+        self._elist = elist
+        self._exitage = self._calc_exitage()
 
     @property
     def elist(self):
+        """List of RTD objects."""
         return self._elist
 
-    @elist.setter
-    def elist(self, elist):
+    def _calc_exitage(self):
+        """
+        Create system exit age function.
 
-        self._elist = elist
-
+        Loop all RTD models and convolve them together.
+        Truncate length of exit age function to keep same time_end.
+        """
         exitage = self.elist[0].exitage
-        for idx, item in enumerate(self._elist[1:]):
+        for item in self.elist[1:]:
             exitage = np.convolve(item.exitage, exitage) * self.dt
             exitage = exitage[:len(self.time) or None]
-        self._exitage = exitage
+        return exitage
 
     @staticmethod
-    def get_elist_dt(elist):
-
+    def _validate_rtd(elist):
+        """Validate that all models in elist are RTD models."""
         if any([not isinstance(item, RTD) for item in elist]):
             raise RTDInputError('item in list not an RTD class')
 
+    @staticmethod
+    def _get_elist_dt(elist):
+        """Validate that all dts are the same and return dt."""
         dts = [item.dt for item in elist]
         if len(set(dts)) == 1:
             dt = dts[0]
@@ -82,23 +90,23 @@ class Elist(RTD):
         return dt
 
     @staticmethod
-    def get_elist_time_end(elist):
-
-        if any([not isinstance(item, RTD) for item in elist]):
-            raise RTDInputError('item in list not an RTD class')
+    def _get_elist_time_end(elist):
+        """Validate that all time_ends are the same and return time_end."""
 
         time_ends = [item.time_end for item in elist]
         if len(set(time_ends)) == 1:
             time_end = time_ends[0]
         else:
-            raise RTDInputError('RTDs have inconsistent dt in Elist')
+            raise RTDInputError('RTDs have inconsistent time_end in Elist')
         return time_end
 
     def __iter__(self):
+        """Enable iteration."""
         self._index = 0
         return self
 
     def __next__(self):
+        """Implement iteration."""
         try:
             result = self.elist[self._index]
         except IndexError:
@@ -107,5 +115,5 @@ class Elist(RTD):
         return result
 
     def __repr__(self):
-        """Returns representation of object"""
+        """Representation of object."""
         return ("Elist(elist={})".format(self.elist))

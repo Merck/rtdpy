@@ -38,3 +38,15 @@ def test_repr():
     assert np.isclose(a.integral(), b.integral(), rtol=rtol, atol=atol)
     assert np.isclose(a.mrt(), b.mrt(), rtol=rtol, atol=atol)
     assert np.isclose(a.sigma(), b.sigma(), rtol=rtol, atol=atol)
+
+
+@pytest.mark.parametrize("b", [-1, 0])
+def test_negative_tau_error(b):
+    with pytest.raises(rtd.RTDInputError):
+        rtd.Zusatz(b=b, c=5, dt=1, time_end=1)
+
+
+@pytest.mark.parametrize("c", [-1, 0])
+def test_negative_n_error(c):
+    with pytest.raises(rtd.RTDInputError):
+        rtd.Zusatz(b=5, c=c, dt=1, time_end=1)

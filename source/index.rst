@@ -16,6 +16,7 @@ Included RTD models:
    AxialDispersion_cc
    AxialDispersion_oo
    AxialDispersion_hi_peclet
+   Convection
    Zusatz
    Combinations
 
@@ -28,7 +29,7 @@ RTD models are easy to create
 
    for n in [1, 2, 5, 10, 100]:
        a = rtdpy.Ncstr(tau=1, n=n, dt=.001, time_end=3)
-       plt.plot(a.time, a.exitage, label="n={}".format(n))
+       plt.plot(a.time, a.exitage, label=f"n={n}")
 
    plt.xlabel('Time')
    plt.ylabel('Exit Age Function')
@@ -41,7 +42,7 @@ Step responses are immediately available
 
    for n in [1, 2, 5, 10, 100]:
        a = rtdpy.Ncstr(tau=1, n=n, dt=.001, time_end=3)
-       plt.plot(a.time, a.stepresponse, label="n={}".format(n))
+       plt.plot(a.time, a.stepresponse, label=f"n={n}")
 
    plt.xlabel('Time')
    plt.ylabel('Exit Age Function')
@@ -71,9 +72,9 @@ Integral, mean residence time, and variance are easily obtained
    mrt = a.mrt()
    sigma = a.sigma()
 
-   print( f'Integral            = {integral: .2f}\n'
-         +f'Mean residence time = {mrt: .2f}\n'	
-	 +f'Variance            = {sigma: .2f}')
+   print(f'Integral            = {integral: .2f}\n'
+         f'Mean residence time = {mrt: .2f}\n'	
+	 f'Variance            = {sigma: .2f}')
 
 We can predict output signals from input signals
 

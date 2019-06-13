@@ -1,12 +1,10 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>rtdpy.pfr &#8212; rtdpy 0.4 documentation</title>
+    <meta charset="utf-8" />
+    <title>rtdpy.pfr &#8212; rtdpy 0.5 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -44,6 +42,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../AxialDispersion_cc.html">Axial Dispersion closed-closed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../AxialDispersion_oo.html">Axial Dispersion open-open</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../AxialDispersion_hi_peclet.html">Axial Dispersion Large Peclet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Convection.html">Convection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Zusatz.html">Zusatz</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Combinations.html">Combinations of Models</a></li>
 </ul>
@@ -58,13 +57,11 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -86,7 +83,9 @@
           <div class="body" role="main">
             
   <h1>Source code for rtdpy.pfr</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="sd">&quot;&quot;&quot;PFR model.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">rtdpy.rtd</span> <span class="k">import</span> <span class="n">RTD</span><span class="p">,</span> <span class="n">RTDInputError</span>
 
@@ -126,45 +125,36 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">time_end</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">time_end</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_exitage</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">tau</span> <span class="o">=</span> <span class="n">tau</span>
+        <span class="k">if</span> <span class="n">tau</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span><span class="s2">&quot;tau less than 0&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tau</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span>
+                <span class="s2">&quot;PFR lag is at or beyond end of supplied time&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="n">tau</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_exitage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_exitage</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_calc_exitage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-                <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span>
-                    <span class="s1">&#39;PFR lag is at or beyond end of supplied time&#39;</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;Calculate exitage.&quot;&quot;&quot;</span>
 
-            <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
-            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">t</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">)</span>
-            <span class="n">idxfirst</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">idxfirst</span> <span class="o">==</span> <span class="n">t</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span><span class="s1">&#39;PFR lag is at end of supplied time&#39;</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">)</span>
+        <span class="n">idxfirst</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">idxfirst</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span><span class="s1">&#39;PFR lag is at end of supplied time&#39;</span><span class="p">)</span>
 
-            <span class="n">a</span><span class="p">[</span><span class="n">idxfirst</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">idxfirst</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span>
-            <span class="n">a</span><span class="p">[</span><span class="n">idxfirst</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="n">idxfirst</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span>
-
-            <span class="n">output</span> <span class="o">=</span> <span class="n">a</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">output</span>
+        <span class="n">a</span><span class="p">[</span><span class="n">idxfirst</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idxfirst</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span>
+        <span class="n">a</span><span class="p">[</span><span class="n">idxfirst</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idxfirst</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span>
+        <span class="k">return</span> <span class="n">a</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">tau</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Tau. L/U&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span>
 
-    <span class="nd">@tau</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">tau</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tau</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">tau</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span><span class="s2">&quot;tau less than 0&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="n">tau</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_exitage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_exitage</span><span class="p">()</span>
-
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns representation of object&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Representation of object&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Pfr(tau=</span><span class="si">{}</span><span class="s2">, dt=</span><span class="si">{}</span><span class="s2">, time_end=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_end</span><span class="p">))</span></div>
 </pre></div>
@@ -179,7 +169,7 @@
       &copy;Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

@@ -1,12 +1,10 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>rtdpy.ad_cc &#8212; rtdpy 0.4 documentation</title>
+    <meta charset="utf-8" />
+    <title>rtdpy.ad_cc &#8212; rtdpy 0.5 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -44,6 +42,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../AxialDispersion_cc.html">Axial Dispersion closed-closed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../AxialDispersion_oo.html">Axial Dispersion open-open</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../AxialDispersion_hi_peclet.html">Axial Dispersion Large Peclet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Convection.html">Convection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Zusatz.html">Zusatz</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Combinations.html">Combinations of Models</a></li>
 </ul>
@@ -58,13 +57,11 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -116,7 +113,7 @@
 <span class="sd">        E(t) = C(z=1, t)\\\\</span>
 <span class="sd">        C_{in} = \\delta(t)\\\\</span>
 <span class="sd">        C_{in} = C\\rvert_{z=0}</span>
-<span class="sd">        - D\\frac{\\partial C}{\\partial z}\\biggr\\rvert_{z=0}\\\\</span>
+<span class="sd">        - \\frac{1}{Pe}\\frac{\\partial C}{\\partial z}\\biggr\\rvert_{z=0}\\\\</span>
 <span class="sd">        \\frac{\\partial C}{\\partial z} = 0, z=1</span>
 
 <span class="sd">    and initial conditions</span>
@@ -125,12 +122,16 @@
 
 <span class="sd">        C=0 \\text{ for } t=0</span>
 
+<span class="sd">    The inpulse input is approximated by a fast exponential.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    tau : scalar</span>
-<span class="sd">        L/U or mean residence time</span>
+<span class="sd">        L/U or mean residence time.</span>
+<span class="sd">        ``tau&gt;0``</span>
 <span class="sd">    peclet : scalar</span>
-<span class="sd">        Reactor Peclet number (L*U/D)</span>
+<span class="sd">        Reactor Peclet number (L*U/D).</span>
+<span class="sd">        ``peclet&gt;0``</span>
 <span class="sd">    dt : scalar</span>
 <span class="sd">        Time step for RTD.</span>
 <span class="sd">        ``dt&gt;0``</span>
@@ -141,17 +142,18 @@
 <span class="sd">    Other Parameters</span>
 <span class="sd">    ----------------</span>
 <span class="sd">    nx : optional</span>
-<span class="sd">        Number of points to discretize 1D PDE</span>
+<span class="sd">        Number of points to discretize 1D PDE. Default is 200.</span>
 <span class="sd">    a : optional</span>
 <span class="sd">        Rate at which to introduce material.</span>
 <span class="sd">        The inverse of a is the approximate amount of time to resolve the</span>
-<span class="sd">        impulse input</span>
+<span class="sd">        impulse input. Default is 10000.</span>
 <span class="sd">    rtol : optional</span>
-<span class="sd">        Relative tolerance to use in ODE solver</span>
+<span class="sd">        Relative tolerance to use in ODE solver. Default is 1e-5</span>
 <span class="sd">    atol : optional</span>
-<span class="sd">        Absolute tolerance to use in ODE solver</span>
+<span class="sd">        Absolute tolerance to use in ODE solver. Default is 1e-10.</span>
 <span class="sd">    max_step : optional</span>
-<span class="sd">        Maximum time step size (dimensionless) to use in ODE solver</span>
+<span class="sd">        Maximum time step size (dimensionless) to use in ODE solver.</span>
+<span class="sd">        Default is 0.01.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -167,7 +169,7 @@
 <span class="sd">    &gt;&gt;&gt; import rtdpy</span>
 <span class="sd">    &gt;&gt;&gt; for pe in [10, 100]:</span>
 <span class="sd">    ...     a = rtdpy.AD_cc(tau=1, peclet=pe, dt=.01, time_end=3)</span>
-<span class="sd">    ...     plt.plot(a.time, a.exitage, label=&#39;peclet={}&#39;.format(pe))</span>
+<span class="sd">    ...     plt.plot(a.time, a.exitage, label=f&quot;peclet={pe}&quot;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.xlabel(&#39;Time&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.ylabel(&#39;Exit Age Function&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.legend()</span>
@@ -176,10 +178,10 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">peclet</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">time_end</span><span class="p">,</span> <span class="n">nx</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span>
                  <span class="n">atol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;init AD model&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Axial Dispersion closed-closed model&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">time_end</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="n">tau</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_peclet</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pde_result</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -189,67 +191,49 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">atol</span> <span class="o">=</span> <span class="n">atol</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_step</span> <span class="o">=</span> <span class="n">max_step</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">tau</span> <span class="o">=</span> <span class="n">tau</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">peclet</span> <span class="o">=</span> <span class="n">peclet</span>
+        <span class="k">if</span> <span class="n">tau</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span><span class="s1">&#39;tau less than zero&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="n">tau</span>
 
-    <span class="k">def</span> <span class="nf">_calc_pde</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculates the dimensionless pde result&quot;&quot;&quot;</span>
-        <span class="n">t_max</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="k">if</span> <span class="n">peclet</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span><span class="s1">&#39;peclet less than zero&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_peclet</span> <span class="o">=</span> <span class="n">peclet</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pde_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_pde</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_end</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_exitage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_exitage</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_calc_pde</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t_max</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the dimensionless pde result.&quot;&quot;&quot;</span>
+
         <span class="n">t_span</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t_max</span><span class="p">)</span>
-
         <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx</span><span class="p">)</span>
-
         <span class="n">u0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nx</span><span class="p">)</span>
-
         <span class="n">h</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
         <span class="n">j</span> <span class="o">=</span> <span class="n">jac</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">peclet</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
 
         <span class="n">sol</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">solve_ivp</span><span class="p">(</span>
             <span class="n">fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">dudt</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">peclet</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">),</span>
             <span class="n">jac</span><span class="o">=</span><span class="n">j</span><span class="p">,</span> <span class="n">t_span</span><span class="o">=</span><span class="n">t_span</span><span class="p">,</span> <span class="n">y0</span><span class="o">=</span><span class="n">u0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;BDF&quot;</span><span class="p">,</span> <span class="n">dense_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">rtol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">atol</span><span class="p">,</span> <span class="n">max_step</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_step</span><span class="p">)</span>
-
         <span class="k">return</span> <span class="n">sol</span>
 
     <span class="k">def</span> <span class="nf">_calc_exitage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;calculates exitage function&quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-
-            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pde_result</span><span class="o">.</span><span class="n">sol</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="sd">&quot;&quot;&quot;Calculate exit age from dimensionless result.&quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pde_result</span><span class="o">.</span><span class="n">sol</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span>
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">peclet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns Peclet number&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Peclet number.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_peclet</span>
-
-    <span class="nd">@peclet</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">peclet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peclet</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set Peclet number&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">peclet</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span><span class="s1">&#39;peclet less than zero&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_peclet</span> <span class="o">=</span> <span class="n">peclet</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pde_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_pde</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_exitage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_exitage</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">tau</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns tau&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Tau&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span>
 
-    <span class="nd">@tau</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">tau</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tau</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set tau&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">tau</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span><span class="s1">&#39;tau less than zero&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tau</span> <span class="o">=</span> <span class="n">tau</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_exitage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_exitage</span><span class="p">()</span>
-
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns representation of object&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Representation of object&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;AD_cc(tau=</span><span class="si">{}</span><span class="s2">, peclet=</span><span class="si">{}</span><span class="s2">, dt=</span><span class="si">{}</span><span class="s2">, time_end=</span><span class="si">{}</span><span class="s2">, nx=</span><span class="si">{}</span><span class="s2">, a=</span><span class="si">{}</span><span class="s2">&quot;</span>
                 <span class="o">+</span> <span class="s2">&quot;, rtol=</span><span class="si">{}</span><span class="s2">, atol=</span><span class="si">{}</span><span class="s2">, max_step=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">peclet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_end</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span>
@@ -266,7 +250,7 @@
       &copy;Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

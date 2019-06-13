@@ -17,15 +17,22 @@ class AD_oo(RTD):
     Parameters
     ----------
     tau : scalar
-        L/U, not the mean residence time, see tau_oo
+        L/U, not the mean residence time, see tau_oo.
+        ``tau>0``
     peclet : scalar
-        Reactor Peclet number (L*U/D)
+        Reactor Peclet number (L*U/D).
+        ``peclet>0``
     dt : scalar
         Time step for RTD.
         ``dt>0``
     time_end : scalar
         End time for RTD.
         ``time_end>0``
+
+    Notes
+    -----
+    The mean residence time for an open-open system is not tau.
+    Mean residence time is :math:`\\tau_{oo} = (1+2/Pe)*\\tau`.
 
     References
     ----------
@@ -39,7 +46,7 @@ class AD_oo(RTD):
     >>> import rtdpy
     >>> for pe in [10, 100]:
     ...     a = rtdpy.AD_oo(tau=1, peclet=pe, dt=.01, time_end=3)
-    ...     plt.plot(a.time, a.exitage, label="peclet={}".format(pe))
+    ...     plt.plot(a.time, a.exitage, label=f"peclet={pe}")
     >>> plt.xlabel('Time')
     >>> plt.ylabel('Exit Age Function')
     >>> plt.legend()
@@ -49,78 +56,50 @@ class AD_oo(RTD):
     def __init__(self, tau, peclet, dt, time_end):
         super().__init__(dt, time_end)
 
-        self._peclet = None
-        self._theta = None
-        self._tau_oo = None
-        self._tau = None
+        if tau <= 0:
+            raise RTDInputError('tau less than zero')
+        self._tau = tau
 
-        self.tau = tau
-        self.peclet = peclet
+        if peclet <= 0:
+            raise RTDInputError('peclet less than zero')
+        self._peclet = peclet
+
+        self._exitage = self._calc_exitage()
 
     def _calc_exitage(self):
-        try:
-            theta_safe = np.clip(self.theta, np.finfo(float).eps, None)
-            output = 1 / self.tau \
-                / np.sqrt(4. * np.pi * theta_safe / self.peclet) \
-                * np.exp(-(1. - theta_safe) ** 2
-                         / (4. * theta_safe / self.peclet))
-
-        except AttributeError:
-            output = None
-        except TypeError:
-            output = None
-        return output
-
-    def _calc_theta(self):
-        try:
-            output = self.time / self.tau
-        except (AttributeError, TypeError):
-            output = None
-        return output
-
-    def _calc_tau_oo(self):
-        try:
-            output = (1. + 2. / self.peclet) * self.tau
-        except TypeError:
-            output = None
+        theta_safe = np.clip(self.theta, np.finfo(float).eps, None)
+        output = (1 / self.tau
+                  / np.sqrt(4. * np.pi * theta_safe / self.peclet)
+                  * np.exp(
+                      -(1. - theta_safe) ** 2
+                      / (4. * theta_safe / self.peclet)))
         return output
 
     @property
     def theta(self):
-        return self._theta
+        """Dimensionless time."""
+        return self.time / self.tau
 
     @property
     def peclet(self):
+        """Peclet number."""
         return self._peclet
-
-    @peclet.setter
-    def peclet(self, peclet):
-        if peclet <= 0:
-            raise RTDInputError('peclet less than zero')
-        self._peclet = peclet
-        self._tau_oo = self._calc_tau_oo()
-        self._theta = self._calc_theta()
-        self._exitage = self._calc_exitage()
 
     @property
     def tau(self):
+        """Tau."""
         return self._tau
-
-    @tau.setter
-    def tau(self, tau):
-        if tau <= 0:
-            raise RTDInputError('tau less than zero')
-        self._tau = tau
-        self._tau_oo = self._calc_tau_oo()
-        self._theta = self._calc_theta()
-        self._exitage = self._calc_exitage()
 
     @property
     def tau_oo(self):
         """
-        Mean Residence Time for open-open system is different than L/U
+        Mean Residence Time for open-open system.  Not tau for open-open.
+
+        .. math:
+
+            tau_oo = (1 + 2/Pe) tau
         """
-        return self._tau_oo
+        return (1. + 2. / self.peclet) * self.tau
 
     def __repr__(self):
         """Returns representation of object"""

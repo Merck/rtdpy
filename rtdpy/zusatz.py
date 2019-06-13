@@ -1,6 +1,6 @@
 import numpy as np
 
-from rtdpy.rtd import RTD
+from rtdpy.rtd import RTD, RTDInputError
 
 
 class Zusatz(RTD):
@@ -17,9 +17,11 @@ class Zusatz(RTD):
     Parameters
     ----------
     b : scalar
-        b Zusatz parameter
+        b Zusatz parameter. ``b>0``
     c : scalar
-        c Zusatz parameter
+        c Zusatz parameter. ``c>0``
+        Mean residence time only defined for ``c>1``.
+        Variance only defined for ``c>2``.
     dt : scalar
         Time step for RTD. ``dt>0``
     time_end : scalar
@@ -46,32 +48,30 @@ class Zusatz(RTD):
     def __init__(self, b, c, dt, time_end):
         super().__init__(dt, time_end)
 
-        self._a = None
-        self._b = None
-        self._c = None
+        if b <= 0:
+            raise RTDInputError("b less than zero")
+        self._b = b
 
-        self.b = b
-        self.c = c
+        if c <= 0:
+            raise RTDInputError("c less than zero")
+        self._c = c
+
+        self._a = self._calc_a()
+
+        self._exitage = self._calc_exitage()
 
     def _calc_exitage(self):
         """equation for exit age function"""
-        try:
-            time_safe = np.clip(self.time, np.finfo(float).eps, None)
-            output = self.a * time_safe**(-self.c-1) \
-                * self.b**(self.c + 1) \
-                * np.exp((self.b**self.c * time_safe**(-1 * self.c) - 1)
-                         * (-self.c - 1) / self.c)
-        except TypeError:
-            output = None
+        time_safe = np.clip(self.time, np.finfo(float).eps, None)
+        output = self.a * time_safe**(-self.c-1) \
+            * self.b**(self.c + 1) \
+            * np.exp((self.b**self.c * time_safe**(-1 * self.c) - 1)
+                     * (-self.c - 1) / self.c)
         return output
 
     def _calc_a(self):
-        """calculate a to normalize rtd"""
-        try:
-            output = (1 + self.c) / (self.b * np.exp(1 + 1 / self.c))
-        except TypeError:
-            output = None
-        return output
+        """Calculate a to normalize rtd"""
+        return (1 + self.c) / (self.b * np.exp(1 + 1 / self.c))
 
     @property
     def a(self):
@@ -83,24 +83,10 @@ class Zusatz(RTD):
         """b parameter"""
         return self._b
 
-    @b.setter
-    def b(self, b):
-        # TODO: check for limits on input parameters
-        self._b = b
-        self._a = self._calc_a()
-        self._exitage = self._calc_exitage()
-
     @property
     def c(self):
         """c parameter"""
         return self._c
-
-    @c.setter
-    def c(self, c):
-        # TODO: check for limits on input parameters
-        self._c = c
-        self._a = self._calc_a()
-        self._exitage = self._calc_exitage()
 
     def __repr__(self):
         """Returns representation of object"""

@@ -1,12 +1,10 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>rtdpy.zusatz &#8212; rtdpy 0.4 documentation</title>
+    <meta charset="utf-8" />
+    <title>rtdpy.zusatz &#8212; rtdpy 0.5 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -44,6 +42,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../AxialDispersion_cc.html">Axial Dispersion closed-closed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../AxialDispersion_oo.html">Axial Dispersion open-open</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../AxialDispersion_hi_peclet.html">Axial Dispersion Large Peclet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Convection.html">Convection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Zusatz.html">Zusatz</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Combinations.html">Combinations of Models</a></li>
 </ul>
@@ -58,13 +57,11 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -88,7 +85,7 @@
   <h1>Source code for rtdpy.zusatz</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">rtdpy.rtd</span> <span class="k">import</span> <span class="n">RTD</span>
+<span class="kn">from</span> <span class="nn">rtdpy.rtd</span> <span class="k">import</span> <span class="n">RTD</span><span class="p">,</span> <span class="n">RTDInputError</span>
 
 
 <div class="viewcode-block" id="Zusatz"><a class="viewcode-back" href="../../Zusatz.html#rtdpy.zusatz.Zusatz">[docs]</a><span class="k">class</span> <span class="nc">Zusatz</span><span class="p">(</span><span class="n">RTD</span><span class="p">):</span>
@@ -105,9 +102,11 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    b : scalar</span>
-<span class="sd">        b Zusatz parameter</span>
+<span class="sd">        b Zusatz parameter. ``b&gt;0``</span>
 <span class="sd">    c : scalar</span>
-<span class="sd">        c Zusatz parameter</span>
+<span class="sd">        c Zusatz parameter. ``c&gt;0``</span>
+<span class="sd">        Mean residence time only defined for ``c&gt;1``.</span>
+<span class="sd">        Variance only defined for ``c&gt;2``.</span>
 <span class="sd">    dt : scalar</span>
 <span class="sd">        Time step for RTD. ``dt&gt;0``</span>
 <span class="sd">    time_end : scalar</span>
@@ -134,32 +133,30 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">time_end</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">time_end</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_a</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_b</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_c</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span><span class="s2">&quot;b less than zero&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_b</span> <span class="o">=</span> <span class="n">b</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RTDInputError</span><span class="p">(</span><span class="s2">&quot;c less than zero&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_c</span> <span class="o">=</span> <span class="n">c</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_a</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_exitage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_exitage</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_calc_exitage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;equation for exit age function&quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">time_safe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="n">time_safe</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> \
-                <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">**</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> \
-                <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">*</span> <span class="n">time_safe</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-                         <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">time_safe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="n">time_safe</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> \
+            <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">**</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> \
+            <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">*</span> <span class="n">time_safe</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                     <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="k">def</span> <span class="nf">_calc_a</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;calculate a to normalize rtd&quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">))</span>
-        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">output</span>
+        <span class="sd">&quot;&quot;&quot;Calculate a to normalize rtd&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">a</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -171,24 +168,10 @@
         <span class="sd">&quot;&quot;&quot;b parameter&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_b</span>
 
-    <span class="nd">@b</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">b</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="c1"># TODO: check for limits on input parameters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_b</span> <span class="o">=</span> <span class="n">b</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_a</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_exitage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_exitage</span><span class="p">()</span>
-
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">c</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;c parameter&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span>
-
-    <span class="nd">@c</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">c</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
-        <span class="c1"># TODO: check for limits on input parameters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_c</span> <span class="o">=</span> <span class="n">c</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_a</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_exitage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_exitage</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns representation of object&quot;&quot;&quot;</span>
@@ -206,7 +189,7 @@
       &copy;Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

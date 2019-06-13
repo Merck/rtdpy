@@ -10,4 +10,4 @@ lib*/
 *.pyc
 scripts/
 dist/
-
+.tox/

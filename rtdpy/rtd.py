@@ -1,3 +1,4 @@
+"""Base RTD Class and Error."""
 import numpy as np
 from scipy.integrate import cumtrapz
 
@@ -5,6 +6,7 @@ from rtdpy.const import DTTOL
 
 
 class RTDInputError(Exception):
+    """Errors for RTD inputs."""
     pass
 
 
@@ -17,12 +19,15 @@ class RTD:
             The exitage function evaluated at each time point
     """
     def __init__(self, dt, time_end):
-        self._dt = None
-        self._time_end = None
+        if dt <= 0:
+            raise RTDInputError
+        self._dt = dt
+
+        if time_end <= 0:
+            raise RTDInputError
+        self._time_end = time_end
 
         self._exitage = None
-        self.dt = dt
-        self.time_end = time_end
 
     @property
     def exitage(self):
@@ -49,48 +54,33 @@ class RTD:
         """Time step for RTD"""
         return self._dt
 
-    @dt.setter
-    def dt(self, dt):
-        if dt <= 0:
-            raise RTDInputError
-        self._dt = dt
-
     @property
     def time_end(self):
         """Last time point for RTD"""
         return self._time_end
 
-    @time_end.setter
-    def time_end(self, time_end):
-        if time_end is None:
-            self._time_end = None
-            return
-        if time_end <= 0:
-            raise RTDInputError
-        self._time_end = time_end
-
     @property
     def time(self):
         """
-        Time points for exitage function
+        Time points for exitage function.
         """
         return np.arange(0, self.time_end, self.dt)
 
     def integral(self):
         """
-        Integral of RTD
+        Integral of RTD.
         """
         return np.trapz(self.exitage, self.time)
 
     def mrt(self):
         """
-        Mean residence time of RTD
+        Mean residence time of RTD.
         """
         return np.trapz(self.exitage * self.time, self.time)
 
     def sigma(self):
         """
-        Variance of RTD
+        Variance of RTD.
         """
         tbar = self.mrt()
         return np.trapz(self.exitage*(self.time - tbar)**2, self.time)

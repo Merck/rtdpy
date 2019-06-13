@@ -37,7 +37,7 @@ class Ncstr(RTD):
     >>> import rtdpy
     >>> for n in [1, 2, 10]:
     ...     a = rtdpy.Ncstr(tau=1, n=n, dt=.01, time_end=3)
-    ...     plt.plot(a.time, a.exitage, label="n={}".format(n))
+    ...     plt.plot(a.time, a.exitage, label=f"n={n}")
     >>> plt.xlabel('Time')
     >>> plt.ylabel('Exit Age Function')
     >>> plt.legend()
@@ -46,47 +46,35 @@ class Ncstr(RTD):
 
     def __init__(self, n, tau, dt, time_end):
         super().__init__(dt, time_end)
-        self._n = None
-        self._tau = None
 
-        self.n = n
-        self.tau = tau
+        if n <= 0:
+            raise RTDInputError("n less than zero")
+        self._n = n
+
+        if tau <= 0:
+            raise RTDInputError("tau less than zero")
+        self._tau = tau
+
+        self._exitage = self._calc_exitage()
 
     def _calc_exitage(self):
-        """calculte exit age function"""
-        try:
-            output = (self.time / self.tau) ** (self.n - 1) / self.tau \
-                * self.n ** self.n / special.gamma(self.n) \
-                * np.exp(-self.time * self.n / self.tau)
-        except (AttributeError, TypeError):
-            output = None
+        """Calculte exit age function."""
+        output = (self.time / self.tau) ** (self.n - 1) / self.tau \
+            * self.n ** self.n / special.gamma(self.n) \
+            * np.exp(-self.time * self.n / self.tau)
         return output
 
     @property
     def n(self):
-        """Number of CSTRS in series"""
+        """Number of CSTRS in series."""
         return self._n
-
-    @n.setter
-    def n(self, n):
-        if n <= 0:
-            raise RTDInputError("n less than zero")
-        self._n = n
-        self._exitage = self._calc_exitage()
 
     @property
     def tau(self):
-        """Mean Residence Time of **all** tanks combined"""
+        """Mean Residence Time of **all** tanks combined."""
         return self._tau
 
-    @tau.setter
-    def tau(self, tau):
-        if tau <= 0:
-            raise RTDInputError("tau less than zero")
-        self._tau = tau
-        self._exitage = self._calc_exitage()
-
     def __repr__(self):
-        """Returns representation of object"""
+        """Representation of object."""
         return ("Ncstr(n={}, tau={}, dt={}, time_end={})".format(
             self.n, self.tau, self.dt, self.time_end))

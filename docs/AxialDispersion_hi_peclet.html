@@ -1,12 +1,10 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Axial Dispersion Large Peclet &#8212; rtdpy 0.4 documentation</title>
+    <meta charset="utf-8" />
+    <title>Axial Dispersion Large Peclet &#8212; rtdpy 0.5 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -17,7 +15,7 @@
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Zusatz" href="Zusatz.html" />
+    <link rel="next" title="Convection" href="Convection.html" />
     <link rel="prev" title="Axial Dispersion open-open" href="AxialDispersion_oo.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -46,6 +44,7 @@
 <li class="toctree-l1"><a class="reference internal" href="AxialDispersion_cc.html">Axial Dispersion closed-closed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AxialDispersion_oo.html">Axial Dispersion open-open</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Axial Dispersion Large Peclet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Convection.html">Convection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Zusatz.html">Zusatz</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Combinations.html">Combinations of Models</a></li>
 </ul>
@@ -55,18 +54,16 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="AxialDispersion_oo.html" title="previous chapter">Axial Dispersion open-open</a></li>
-      <li>Next: <a href="Zusatz.html" title="next chapter">Zusatz</a></li>
+      <li>Next: <a href="Convection.html" title="next chapter">Convection</a></li>
   </ul></li>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -89,9 +86,10 @@
             
   <div class="section" id="module-rtdpy.ad_hi_peclet">
 <span id="axial-dispersion-large-peclet"></span><h1>Axial Dispersion Large Peclet<a class="headerlink" href="#module-rtdpy.ad_hi_peclet" title="Permalink to this headline">¶</a></h1>
+<p>Axial Dispersion high peclet number assumption.</p>
 <dl class="class">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet">
-<em class="property">class </em><code class="descclassname">rtdpy.ad_hi_peclet.</code><code class="descname">AD_hi_peclet</code><span class="sig-paren">(</span><em>tau</em>, <em>peclet</em>, <em>dt</em>, <em>time_end</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/ad_hi_peclet.html#AD_hi_peclet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">rtdpy.ad_hi_peclet.</code><code class="sig-name descname">AD_hi_peclet</code><span class="sig-paren">(</span><em class="sig-param">tau</em>, <em class="sig-param">peclet</em>, <em class="sig-param">dt</em>, <em class="sig-param">time_end</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/ad_hi_peclet.html#AD_hi_peclet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rtdpy.rtd.RTD</span></code></p>
 <p>Create Axial Dispersion with small amount of Dispersion (Pe&gt;100)
 Residence Time Distribution (RTD) model. <a class="reference internal" href="#re893d1bde722-1" id="id1">[1]</a></p>
@@ -99,228 +97,201 @@ Residence Time Distribution (RTD) model. <a class="reference internal" href="#re
 \[E(t) = \frac{\sqrt{Pe}}{2\tau\sqrt{\pi}}
 \text{exp}\left[-\frac{Pe \left(1-t/\tau\right)^2}
 {4}\right]\]</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>tau</strong> <span class="classifier-delimiter">:</span> <span class="classifier">scalar</span></dt>
-<dd><p class="first last">L/U</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>tau</strong><span class="classifier">scalar</span></dt><dd><p>L/U.  Mean residence time.
+<code class="docutils literal notranslate"><span class="pre">tau&gt;0</span></code></p>
 </dd>
-<dt><strong>peclet</strong> <span class="classifier-delimiter">:</span> <span class="classifier">scalar</span></dt>
-<dd><p class="first last">Reactor Peclet number (L*U/D)</p>
+<dt><strong>peclet</strong><span class="classifier">scalar</span></dt><dd><p>Reactor Peclet number (L*U/D).
+<code class="docutils literal notranslate"><span class="pre">peclet&gt;0</span></code></p>
 </dd>
-<dt><strong>dt</strong> <span class="classifier-delimiter">:</span> <span class="classifier">scalar</span></dt>
-<dd><p class="first last">Time step for RTD.
+<dt><strong>dt</strong><span class="classifier">scalar</span></dt><dd><p>Time step for RTD.
 <code class="docutils literal notranslate"><span class="pre">dt&gt;0</span></code></p>
 </dd>
-<dt><strong>time_end</strong> <span class="classifier-delimiter">:</span> <span class="classifier">scalar</span></dt>
-<dd><p class="first last">End time for RTD.
+<dt><strong>time_end</strong><span class="classifier">scalar</span></dt><dd><p>End time for RTD.
 <code class="docutils literal notranslate"><span class="pre">time_end&gt;0</span></code></p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">References</p>
-<table class="docutils citation" frame="void" id="re893d1bde722-1" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> Levenspiel O. (1999) “Chemical Reaction Engineering: Third Edition”
-John Wiley &amp; Sons, Inc.</td></tr>
-</tbody>
-</table>
+<dl class="citation">
+<dt class="label" id="re893d1bde722-1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>Levenspiel O. (1999) “Chemical Reaction Engineering: Third Edition”
+John Wiley &amp; Sons, Inc.</p>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rtdpy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">pe</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]:</span>
 <span class="gp">... </span>    <span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">AD_hi_peclet</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">peclet</span><span class="o">=</span><span class="n">pe</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mi">01</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">exitage</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;peclet=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pe</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">exitage</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;peclet=</span><span class="si">{pe}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Exit Age Function&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure">
+<div class="figure align-default">
 <img alt="_images/AxialDispersion_hi_peclet-1.png" src="_images/AxialDispersion_hi_peclet-1.png" />
 </div>
-<dl class="attribute">
+<dl class="method">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.dt">
-<code class="descname">dt</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.dt" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">dt</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.dt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Time step for RTD</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.exitage">
-<code class="descname">exitage</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.exitage" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">exitage</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.exitage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exit age distribution for RTD</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.exitage_norm">
-<code class="descname">exitage_norm</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.exitage_norm" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">exitage_norm</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.exitage_norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalized Exit Age Distribtion for RTD</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.frequencyresponse">
-<code class="descname">frequencyresponse</code><span class="sig-paren">(</span><em>omegas</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.frequencyresponse" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>omegas</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span></dt>
-<dd><p class="first last">frequencies at which to evaluate magnitude response</p>
+<code class="sig-name descname">frequencyresponse</code><span class="sig-paren">(</span><em class="sig-param">omegas</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.frequencyresponse" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>omegas</strong><span class="classifier">ndarray</span></dt><dd><p>frequencies at which to evaluate magnitude response</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>magnitude</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span></dt>
-<dd><p class="first last">frequency magnitude response at omegas</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>magnitude</strong><span class="classifier">ndarray</span></dt><dd><p>frequency magnitude response at omegas</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.funnelplot">
-<code class="descname">funnelplot</code><span class="sig-paren">(</span><em>times</em>, <em>disturbances</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.funnelplot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">funnelplot</code><span class="sig-paren">(</span><em class="sig-param">times</em>, <em class="sig-param">disturbances</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.funnelplot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return maximum output signal due to square disturbances.</p>
 <p>Uses method from <a class="reference internal" href="#rd215f3d397a7-garcia" id="id3">[Garcia]</a> .
 Also returns meshgrid for times and disturbance inputs
 for ease of plotting.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>times</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array_like, size m</span></dt>
-<dd><p class="first last">Times to determine funnelplot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>times</strong><span class="classifier">array_like, size m</span></dt><dd><p>Times to determine funnelplot</p>
 </dd>
-<dt><strong>disturbances</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array_like, size n</span></dt>
-<dd><p class="first last">Disturbance magnitudes</p>
+<dt><strong>disturbances</strong><span class="classifier">array_like, size n</span></dt><dd><p>Disturbance magnitudes</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>x</strong> <span class="classifier-delimiter">:</span> <span class="classifier">2D meshgrid size (mxn)</span></dt>
-<dd><p class="first last">times</p>
 </dd>
-<dt><strong>y</strong> <span class="classifier-delimiter">:</span> <span class="classifier">2D meshgrid size (mxn)</span></dt>
-<dd><p class="first last">disturbances</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">2D meshgrid size (mxn)</span></dt><dd><p>times</p>
 </dd>
-<dt><strong>response</strong> <span class="classifier-delimiter">:</span> <span class="classifier">2D meshgrid size (mxn)</span></dt>
-<dd><p class="first last">maximum response at (x,y)</p>
+<dt><strong>y</strong><span class="classifier">2D meshgrid size (mxn)</span></dt><dd><p>disturbances</p>
+</dd>
+<dt><strong>response</strong><span class="classifier">2D meshgrid size (mxn)</span></dt><dd><p>maximum response at (x,y)</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">References</p>
-<table class="docutils citation" frame="void" id="rd215f3d397a7-garcia" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[Garcia]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> Garcia-Munoz S., Butterbaugh A., Leavesley I.,
+<dl class="citation">
+<dt class="label" id="rd215f3d397a7-garcia"><span class="brackets">Garcia</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id4">2</a>)</span></dt>
+<dd><p>Garcia-Munoz S., Butterbaugh A., Leavesley I.,
 Manley L.F., Slade D., Bermingham S. (2018)
 A flowhseet model for the development of a continuous process for
 pharmaceutical tablets: An industrial perspective.
-“AIChE Journal”, 64(2), 511-525.</td></tr>
-</tbody>
-</table>
+“AIChE Journal”, 64(2), 511-525.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.integral">
-<code class="descname">integral</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.integral" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integral of RTD</p>
+<code class="sig-name descname">integral</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.integral" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integral of RTD.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.mrt">
-<code class="descname">mrt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.mrt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mean residence time of RTD</p>
+<code class="sig-name descname">mrt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.mrt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean residence time of RTD.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.output">
-<code class="descname">output</code><span class="sig-paren">(</span><em>inputtime</em>, <em>inputsignal</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.output" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">output</code><span class="sig-paren">(</span><em class="sig-param">inputtime</em>, <em class="sig-param">inputsignal</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convolves input signal with RTD</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>inputtime</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span></dt>
-<dd><p class="first last">Times of input signal, which must have same <cite>dt</cite> as RTD.  Size m</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>inputtime</strong><span class="classifier">ndarray</span></dt><dd><p>Times of input signal, which must have same <cite>dt</cite> as RTD.  Size m</p>
 </dd>
-<dt><strong>inputsignal</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarray</span></dt>
-<dd><p class="first last">Input signal. Size n</p>
+<dt><strong>inputsignal</strong><span class="classifier">ndarray</span></dt><dd><p>Input signal. Size n</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>outputsignal</strong> <span class="classifier-delimiter">:</span> <span class="classifier">ndarrary</span></dt>
-<dd><p class="first last">Output signal at same <cite>dt</cite>.  Size m + n -1</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>outputsignal</strong><span class="classifier">ndarrary</span></dt><dd><p>Output signal at same <cite>dt</cite>.  Size m + n -1</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.peclet">
-<code class="descname">peclet</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.peclet" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">property </em><code class="sig-name descname">peclet</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.peclet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Peclet Number</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.sigma">
-<code class="descname">sigma</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.sigma" title="Permalink to this definition">¶</a></dt>
-<dd><p>Variance of RTD</p>
+<code class="sig-name descname">sigma</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.sigma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variance of RTD.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.stepresponse">
-<code class="descname">stepresponse</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.stepresponse" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">stepresponse</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.stepresponse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step respose of RTD</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.stepresponse_norm">
-<code class="descname">stepresponse_norm</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.stepresponse_norm" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">stepresponse_norm</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.stepresponse_norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalized step respose of RTD</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.tau">
-<code class="descname">tau</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.tau" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.theta">
-<code class="descname">theta</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.theta" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.time">
-<code class="descname">time</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.time" title="Permalink to this definition">¶</a></dt>
-<dd><p>Time points for exitage function</p>
+<em class="property">property </em><code class="sig-name descname">tau</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.tau" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean residence time, Tau.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.theta">
+<em class="property">property </em><code class="sig-name descname">theta</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.theta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dimensionless Time.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.time">
+<em class="property">property </em><code class="sig-name descname">time</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time points for exitage function.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="rtdpy.ad_hi_peclet.AD_hi_peclet.time_end">
-<code class="descname">time_end</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.time_end" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">time_end</code><a class="headerlink" href="#rtdpy.ad_hi_peclet.AD_hi_peclet.time_end" title="Permalink to this definition">¶</a></dt>
 <dd><p>Last time point for RTD</p>
 </dd></dl>
 
@@ -339,7 +310,7 @@ pharmaceutical tablets: An industrial perspective.
       &copy;Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

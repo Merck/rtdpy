@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Convection &#8212; rtdpy 0.5 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Zusatz" href="Zusatz.html" />
+    <link rel="prev" title="Axial Dispersion Large Peclet" href="AxialDispersion_hi_peclet.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">rtdpy</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="NCstr.html">Tanks in Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pfr.html">Plug Flow Reactor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AxialDispersion_cc.html">Axial Dispersion closed-closed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AxialDispersion_oo.html">Axial Dispersion open-open</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AxialDispersion_hi_peclet.html">Axial Dispersion Large Peclet</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Convection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zusatz.html">Zusatz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Combinations.html">Combinations of Models</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="AxialDispersion_hi_peclet.html" title="previous chapter">Axial Dispersion Large Peclet</a></li>
+      <li>Next: <a href="Zusatz.html" title="next chapter">Zusatz</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="convection">
+<h1>Convection<a class="headerlink" href="#convection" title="Permalink to this headline">¶</a></h1>
+<p>Pure Convection Model</p>
+<span class="target" id="module-rtdpy.convection"></span><dl class="class">
+<dt id="rtdpy.convection.Convection">
+<em class="property">class </em><code class="sig-prename descclassname">rtdpy.convection.</code><code class="sig-name descname">Convection</code><span class="sig-paren">(</span><em class="sig-param">tau</em>, <em class="sig-param">dt</em>, <em class="sig-param">time_end</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/convection.html#Convection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.convection.Convection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rtdpy.rtd.RTD</span></code></p>
+<p>Create pure convection model for laminar flow in a pipe. <a class="reference internal" href="#rfcee3655e378-1" id="id1">[1]</a></p>
+<p>The true RTD curve is given by <span class="math notranslate nohighlight">\(E(t)\)</span> for a flux-based introduction
+of material and a flux-based measurment. If only one of introduction or
+measurement is planar, then the apparent RTD is given by <span class="math notranslate nohighlight">\(E^*(t)\)</span>.
+If both introduction and measurement are planar, then the apparent RTD
+is given by <span class="math notranslate nohighlight">\(E^{**}(t)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+E(t) &amp;= \frac{\tau^2}{2t^3} &amp; \text{for } t\geq\frac{\tau}{2}\\
+E^*(t) &amp;= \frac{\tau}{2t^2} &amp; \text{for } t\geq\frac{\tau}{2}\\
+E^{**}(t) &amp;= \frac{\tau}{2t} &amp; \text{for } t\geq\frac{\tau}{2}
+\end{align*}\end{split}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(E(t)\)</span> is Convection.exitage</p></li>
+<li><p><span class="math notranslate nohighlight">\(E^*(t)\)</span> is Convection.exitage_star</p></li>
+<li><p><span class="math notranslate nohighlight">\(E^{**}(t)\)</span> is Convection.exitage_star2</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>tau</strong><span class="classifier">scalar</span></dt><dd><p>Mean residence time of true RTD.</p>
+</dd>
+<dt><strong>dt</strong><span class="classifier">scalar</span></dt><dd><p>Time step for RTD. <code class="docutils literal notranslate"><span class="pre">dt&gt;0</span></code></p>
+</dd>
+<dt><strong>time_end</strong><span class="classifier">scalar</span></dt><dd><p>End time for RTD. <code class="docutils literal notranslate"><span class="pre">time_end&gt;0</span></code></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rfcee3655e378-1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>Levenspiel O. (1999) “Chemical Reaction Engineering: Third Edition”
+John Wiley &amp; Sons, Inc.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rtdpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Convection</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mi">01</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">exitage</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;E&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">exitage_star</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;E*&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">exitage_star2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;E**&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Exit Age Function&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<img alt="_images/Convection-1.png" src="_images/Convection-1.png" />
+</div>
+<dl class="method">
+<dt id="rtdpy.convection.Convection.dt">
+<em class="property">property </em><code class="sig-name descname">dt</code><a class="headerlink" href="#rtdpy.convection.Convection.dt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time step for RTD</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.exitage">
+<em class="property">property </em><code class="sig-name descname">exitage</code><a class="headerlink" href="#rtdpy.convection.Convection.exitage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exit age distribution for RTD</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.exitage_norm">
+<em class="property">property </em><code class="sig-name descname">exitage_norm</code><a class="headerlink" href="#rtdpy.convection.Convection.exitage_norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalized Exit Age Distribtion for RTD</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.exitage_star">
+<em class="property">property </em><code class="sig-name descname">exitage_star</code><a class="headerlink" href="#rtdpy.convection.Convection.exitage_star" title="Permalink to this definition">¶</a></dt>
+<dd><p>Planar-Flux or Flux-Planar exitage.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.exitage_star2">
+<em class="property">property </em><code class="sig-name descname">exitage_star2</code><a class="headerlink" href="#rtdpy.convection.Convection.exitage_star2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Planar-Planar exitage.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.frequencyresponse">
+<code class="sig-name descname">frequencyresponse</code><span class="sig-paren">(</span><em class="sig-param">omegas</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.convection.Convection.frequencyresponse" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>omegas</strong><span class="classifier">ndarray</span></dt><dd><p>frequencies at which to evaluate magnitude response</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>magnitude</strong><span class="classifier">ndarray</span></dt><dd><p>frequency magnitude response at omegas</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.funnelplot">
+<code class="sig-name descname">funnelplot</code><span class="sig-paren">(</span><em class="sig-param">times</em>, <em class="sig-param">disturbances</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.convection.Convection.funnelplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return maximum output signal due to square disturbances.</p>
+<p>Uses method from <a class="reference internal" href="#rb4dc053e5dee-garcia" id="id3">[Garcia]</a> .
+Also returns meshgrid for times and disturbance inputs
+for ease of plotting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>times</strong><span class="classifier">array_like, size m</span></dt><dd><p>Times to determine funnelplot</p>
+</dd>
+<dt><strong>disturbances</strong><span class="classifier">array_like, size n</span></dt><dd><p>Disturbance magnitudes</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">2D meshgrid size (mxn)</span></dt><dd><p>times</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">2D meshgrid size (mxn)</span></dt><dd><p>disturbances</p>
+</dd>
+<dt><strong>response</strong><span class="classifier">2D meshgrid size (mxn)</span></dt><dd><p>maximum response at (x,y)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rb4dc053e5dee-garcia"><span class="brackets">Garcia</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id4">2</a>)</span></dt>
+<dd><p>Garcia-Munoz S., Butterbaugh A., Leavesley I.,
+Manley L.F., Slade D., Bermingham S. (2018)
+A flowhseet model for the development of a continuous process for
+pharmaceutical tablets: An industrial perspective.
+“AIChE Journal”, 64(2), 511-525.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.integral">
+<code class="sig-name descname">integral</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.convection.Convection.integral" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integral of RTD.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.mrt">
+<code class="sig-name descname">mrt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.convection.Convection.mrt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean residence time of RTD.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.output">
+<code class="sig-name descname">output</code><span class="sig-paren">(</span><em class="sig-param">inputtime</em>, <em class="sig-param">inputsignal</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.convection.Convection.output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convolves input signal with RTD</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>inputtime</strong><span class="classifier">ndarray</span></dt><dd><p>Times of input signal, which must have same <cite>dt</cite> as RTD.  Size m</p>
+</dd>
+<dt><strong>inputsignal</strong><span class="classifier">ndarray</span></dt><dd><p>Input signal. Size n</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>outputsignal</strong><span class="classifier">ndarrary</span></dt><dd><p>Output signal at same <cite>dt</cite>.  Size m + n -1</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.sigma">
+<code class="sig-name descname">sigma</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.convection.Convection.sigma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variance of RTD.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.stepresponse">
+<em class="property">property </em><code class="sig-name descname">stepresponse</code><a class="headerlink" href="#rtdpy.convection.Convection.stepresponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step respose of RTD</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.stepresponse_norm">
+<em class="property">property </em><code class="sig-name descname">stepresponse_norm</code><a class="headerlink" href="#rtdpy.convection.Convection.stepresponse_norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalized step respose of RTD</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.tau">
+<em class="property">property </em><code class="sig-name descname">tau</code><a class="headerlink" href="#rtdpy.convection.Convection.tau" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean Residence Time of <strong>all</strong> tanks combined.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.time">
+<em class="property">property </em><code class="sig-name descname">time</code><a class="headerlink" href="#rtdpy.convection.Convection.time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time points for exitage function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rtdpy.convection.Convection.time_end">
+<em class="property">property </em><code class="sig-name descname">time_end</code><a class="headerlink" href="#rtdpy.convection.Convection.time_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Last time point for RTD</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Convection.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

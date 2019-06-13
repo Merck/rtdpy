@@ -5,13 +5,13 @@ import sys
 
 sys.path.insert(0,os.path.abspath('..'))
 
-from rtdpy.const import version
+from rtdpy import __version__
 
 project = 'rtdpy'
 copyright = 'Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA'
 author = 'Matthew Flamm'
 
-release = version
+release = __version__
 
 extensions = [
     'sphinx.ext.autodoc',

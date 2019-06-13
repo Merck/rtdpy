@@ -28,7 +28,7 @@ class AD_cc(RTD):
         E(t) = C(z=1, t)\\\\
         C_{in} = \\delta(t)\\\\
         C_{in} = C\\rvert_{z=0}
-        - D\\frac{\\partial C}{\\partial z}\\biggr\\rvert_{z=0}\\\\
+        - \\frac{1}{Pe}\\frac{\\partial C}{\\partial z}\\biggr\\rvert_{z=0}\\\\
         \\frac{\\partial C}{\\partial z} = 0, z=1
 
     and initial conditions
@@ -37,12 +37,16 @@ class AD_cc(RTD):
 
         C=0 \\text{ for } t=0
 
+    The inpulse input is approximated by a fast exponential.
+
     Parameters
     ----------
     tau : scalar
-        L/U or mean residence time
+        L/U or mean residence time.
+        ``tau>0``
     peclet : scalar
-        Reactor Peclet number (L*U/D)
+        Reactor Peclet number (L*U/D).
+        ``peclet>0``
     dt : scalar
         Time step for RTD.
         ``dt>0``
@@ -53,17 +57,18 @@ class AD_cc(RTD):
     Other Parameters
     ----------------
     nx : optional
-        Number of points to discretize 1D PDE
+        Number of points to discretize 1D PDE. Default is 200.
     a : optional
         Rate at which to introduce material.
         The inverse of a is the approximate amount of time to resolve the
-        impulse input
+        impulse input. Default is 10000.
     rtol : optional
-        Relative tolerance to use in ODE solver
+        Relative tolerance to use in ODE solver. Default is 1e-5
     atol : optional
-        Absolute tolerance to use in ODE solver
+        Absolute tolerance to use in ODE solver. Default is 1e-10.
     max_step : optional
-        Maximum time step size (dimensionless) to use in ODE solver
+        Maximum time step size (dimensionless) to use in ODE solver.
+        Default is 0.01.
 
     References
     ----------
@@ -79,7 +84,7 @@ class AD_cc(RTD):
     >>> import rtdpy
     >>> for pe in [10, 100]:
     ...     a = rtdpy.AD_cc(tau=1, peclet=pe, dt=.01, time_end=3)
-    ...     plt.plot(a.time, a.exitage, label='peclet={}'.format(pe))
+    ...     plt.plot(a.time, a.exitage, label=f"peclet={pe}")
     >>> plt.xlabel('Time')
     >>> plt.ylabel('Exit Age Function')
     >>> plt.legend()
@@ -88,10 +93,10 @@ class AD_cc(RTD):
 
     def __init__(self, tau, peclet, dt, time_end, nx=200, a=10000, rtol=1e-5,
                  atol=1e-10, max_step=0.01):
-        """init AD model"""
+        """Axial Dispersion closed-closed model"""
         super().__init__(dt, time_end)
 
-        self._tau = None
+        self._tau = tau
         self._peclet = None
         self._pde_result = None
 
@@ -101,11 +106,19 @@ class AD_cc(RTD):
         self.atol = atol
         self.max_step = max_step
 
-        self.tau = tau
-        self.peclet = peclet
+        if tau <= 0:
+            raise RTDInputError('tau less than zero')
+        self._tau = tau
+
+        if peclet <= 0:
+            raise RTDInputError('peclet less than zero')
+        self._peclet = peclet
+
+        self._pde_result = self._calc_pde(self.time_end / self.tau)
+        self._exitage = self._calc_exitage()
 
     def _calc_pde(self, t_max):
-        """Calculates the dimensionless pde result"""
+        """Calculate the dimensionless pde result."""
 
         t_span = (0, t_max)
         x = np.linspace(0, 1, self.nx)
@@ -120,42 +133,22 @@ class AD_cc(RTD):
         return sol
 
     def _calc_exitage(self):
-        """calculates exitage function"""
-        try:
-            output = self._pde_result.sol(self.time / self.tau)[-1] / self.tau
-        except AttributeError:
-            output = None
+        """Calculate exit age from dimensionless result."""
+        output = self._pde_result.sol(self.time / self.tau)[-1] / self.tau
         return output
 
     @property
     def peclet(self):
-        """Returns Peclet number"""
+        """Peclet number."""
         return self._peclet
-
-    @peclet.setter
-    def peclet(self, peclet):
-        """Set Peclet number"""
-        if peclet <= 0:
-            raise RTDInputError('peclet less than zero')
-        self._peclet = peclet
-        self._pde_result = self._calc_pde(self.time_end / self.tau)
-        self._exitage = self._calc_exitage()
 
     @property
     def tau(self):
-        """Returns tau"""
+        """Tau"""
         return self._tau
 
-    @tau.setter
-    def tau(self, tau):
-        """Set tau"""
-        if tau <= 0:
-            raise RTDInputError('tau less than zero')
-        self._tau = tau
-        self._exitage = self._calc_exitage()
-
     def __repr__(self):
-        """Returns representation of object"""
+        """Representation of object"""
         return ("AD_cc(tau={}, peclet={}, dt={}, time_end={}, nx={}, a={}"
                 + ", rtol={}, atol={}, max_step={})").format(
                     self.tau, self.peclet, self.dt, self.time_end, self.nx,

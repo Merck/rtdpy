@@ -1,2 +1,3 @@
-version = '0.4'
+"""Constants for rtdpy"""
+
 DTTOL = 1e-10

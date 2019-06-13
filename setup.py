@@ -1,13 +1,13 @@
 from setuptools import setup
 
-from rtdpy.const import version
+exec(open('rtdpy/version.py').read())
 
 with open('README.md', 'r') as fh:
     long_description = fh.read()
 
 setup(
     name='rtdpy',
-    version=version,
+    version=__version__,
     packages=['rtdpy'],
     license='LICENSE',
     author='Matthew Flamm',

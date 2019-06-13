@@ -1,12 +1,10 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>rtdpy documentation &#8212; rtdpy 0.4 documentation</title>
+    <meta charset="utf-8" />
+    <title>rtdpy documentation &#8212; rtdpy 0.5 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -45,6 +43,7 @@
 <li class="toctree-l1"><a class="reference internal" href="AxialDispersion_cc.html">Axial Dispersion closed-closed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AxialDispersion_oo.html">Axial Dispersion open-open</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AxialDispersion_hi_peclet.html">Axial Dispersion Large Peclet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Convection.html">Convection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Zusatz.html">Zusatz</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Combinations.html">Combinations of Models</a></li>
 </ul>
@@ -58,13 +57,11 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -88,7 +85,7 @@
   <div class="section" id="rtdpy-documentation">
 <h1>rtdpy documentation<a class="headerlink" href="#rtdpy-documentation" title="Permalink to this headline">¶</a></h1>
 <p>rtdpy is a python package for residence time distribution (RTD) analysis.
-All models and functionality are tested against analytical solutions. <a class="footnote-reference" href="#f1" id="id1">[1]</a></p>
+All models and functionality are tested against analytical solutions. <a class="footnote-reference brackets" href="#f1" id="id1">1</a></p>
 <p><a class="reference external" href="https://github.com/Merck/rtdpy">GitHub repository</a></p>
 <div class="section" id="included-rtd-models">
 <h2>Included RTD models:<a class="headerlink" href="#included-rtd-models" title="Permalink to this headline">¶</a></h2>
@@ -99,6 +96,7 @@ All models and functionality are tested against analytical solutions. <a class="
 <li class="toctree-l1"><a class="reference internal" href="AxialDispersion_cc.html">Axial Dispersion closed-closed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AxialDispersion_oo.html">Axial Dispersion open-open</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AxialDispersion_hi_peclet.html">Axial Dispersion Large Peclet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Convection.html">Convection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Zusatz.html">Zusatz</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Combinations.html">Combinations of Models</a></li>
 </ul>
@@ -109,7 +107,7 @@ All models and functionality are tested against analytical solutions. <a class="
 <p>RTD models are easy to create</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">]:</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Ncstr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mo">001</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">exitage</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;n={}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">exitage</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;n={n}&quot;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Exit Age Function&#39;</span><span class="p">)</span>
@@ -117,13 +115,13 @@ All models and functionality are tested against analytical solutions. <a class="
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure">
+<div class="figure align-default">
 <img alt="_images/index-1.png" src="_images/index-1.png" />
 </div>
 <p>Step responses are immediately available</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">]:</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Ncstr</span><span class="p">(</span><span class="n">tau</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mo">001</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">stepresponse</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;n={}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">stepresponse</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;n={n}&quot;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Exit Age Function&#39;</span><span class="p">)</span>
@@ -131,7 +129,7 @@ All models and functionality are tested against analytical solutions. <a class="
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure">
+<div class="figure align-default">
 <img alt="_images/index-2.png" src="_images/index-2.png" />
 </div>
 <p>Combining two models together into a new model is simple</p>
@@ -145,7 +143,7 @@ All models and functionality are tested against analytical solutions. <a class="
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Combined RTD Model&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure">
+<div class="figure align-default">
 <img alt="_images/index-3.png" src="_images/index-3.png" />
 </div>
 <p>Integral, mean residence time, and variance are easily obtained</p>
@@ -157,9 +155,9 @@ All models and functionality are tested against analytical solutions. <a class="
 
 <span class="gp">In [4]: </span><span class="n">sigma</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">sigma</span><span class="p">()</span>
 
-<span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span> <span class="n">f</span><span class="s1">&#39;Integral            = {integral: .2f}</span><span class="se">\n</span><span class="s1">&#39;</span>
-<span class="gp">   ...: </span>      <span class="o">+</span><span class="n">f</span><span class="s1">&#39;Mean residence time = {mrt: .2f}</span><span class="se">\n</span><span class="s1">&#39;</span>
-<span class="gp">   ...: </span>      <span class="o">+</span><span class="n">f</span><span class="s1">&#39;Variance            = {sigma: .2f}&#39;</span><span class="p">)</span>
+<span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Integral            = {integral: .2f}</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="gp">   ...: </span>      <span class="n">f</span><span class="s1">&#39;Mean residence time = {mrt: .2f}</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="gp">   ...: </span>      <span class="n">f</span><span class="s1">&#39;Variance            = {sigma: .2f}&#39;</span><span class="p">)</span>
 <span class="gp">   ...: </span>
 <span class="go">Integral            =  1.00</span>
 <span class="go">Mean residence time =  1.00</span>
@@ -182,7 +180,7 @@ All models and functionality are tested against analytical solutions. <a class="
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure">
+<div class="figure align-default">
 <img alt="_images/index-4.png" src="_images/index-4.png" />
 </div>
 <p>Obtain the frequency magnitude damping</p>
@@ -196,7 +194,7 @@ All models and functionality are tested against analytical solutions. <a class="
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure">
+<div class="figure align-default">
 <img alt="_images/index-5.png" src="_images/index-5.png" />
 </div>
 <p>Make a funnelplot for input disturbances</p>
@@ -211,7 +209,7 @@ All models and functionality are tested against analytical solutions. <a class="
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Magnitude of Disturbance&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure">
+<div class="figure align-default">
 <img alt="_images/index-6.png" src="_images/index-6.png" />
 </div>
 <p>Fit RTD measurement data</p>
@@ -238,27 +236,26 @@ All models and functionality are tested against analytical solutions. <a class="
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure">
+<div class="figure align-default">
 <img alt="_images/index-7.png" src="_images/index-7.png" />
 </div>
 <p>Author: Matthew Flamm</p>
 <p class="rubric">Footnotes</p>
-<table class="docutils footnote" frame="void" id="f1" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Care needs to be taken to have sufficient resolution in time
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Care needs to be taken to have sufficient resolution in time
 for all models.  For Axial Dispersion closed-closed model,
 very low (&lt;0.1) and very high (&gt;1000) reactor Peclet numbers
-may need special care.</td></tr>
-</tbody>
-</table>
+may need special care.</p>
+</dd>
+</dl>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </div>
 
@@ -273,7 +270,7 @@ may need special care.</td></tr>
       &copy;Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
