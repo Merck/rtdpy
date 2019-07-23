@@ -26,8 +26,8 @@ applications in transport of pollutants [@kirchner_feng_neal_2000].
 A residence time distribution, also known as the exit-age function, is the
 distribution of time material takes to exit a volume once it enters. While
 some RTD models are nearly trivial to implement, some require numerical
-solutions to PDE advection-diffusion equations. In many analyses, there is a
-need to combine multiple RTD models together, particularly for processes with
+solutions to advection-diffusion partial differential equations. In many analyses, 
+there is a need to combine multiple RTD models together, particularly for processes with
 mutliple unit operations. Common RTD analyses are output prediction given an
 input signal, frequency-space signal damping, and disturbance mapping.
 
