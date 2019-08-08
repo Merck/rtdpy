@@ -7,6 +7,8 @@ Residence Time Distribution modeling in Python.
 ## A simple example
 Create a family of tanks in series (N-CSTRs) and analyze them
 ```python
+import matplotlib.pyplot as plt
+import rtdpy
 for n in [1, 2, 5, 10, 100]:
     a = rtdpy.Ncstr(tau=1, n=n, dt=.001, time_end=5)
     plt.plot(a.time, a.exitage, label="n={}".format(n))
