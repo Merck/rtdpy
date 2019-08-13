@@ -25,6 +25,9 @@ plt.title('Impulse Responses')
 pip install rtdpy
 ```
 
+## Issues/Requests/Contributions
+See [CONTRIBUTING.md](CONTRIBUTING.md)
+
 ## Testing
 Tests are written using `pytest`. `numpy` and `scipy` must also be installed in the environment if using `pytest` directly. `tox` can also be used to test against Python versions 3.5, 3.6, and 3.7.
 
