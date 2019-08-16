@@ -29,18 +29,22 @@ pip install rtdpy
 See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Testing
-Tests are written using `pytest`. `numpy` and `scipy` must also be installed in the environment if using `pytest` directly. `tox` can also be used to test against Python versions 3.5, 3.6, and 3.7.
+Tests are written using `pytest`. `numpy` and `scipy` must also be installed in the environment if using `pytest` directly. `tox` can also be used to test against Python versions 3.5, 3.6, and 3.7. See [pytest documentation](https://docs.pytest.org/en/latest/) for how to use and interpret pytest results.
 
-It is recommended to use a virtual environment for developing/testing:
+It is recommended to use a virtual environment for developing/testing.
 
 ```bash
 cd rtdpy_repo_path
 python3 -m venv .venv
 source .venv/bin/activate
-pip install numpy scipy pytest
+pip install -e .  # will also install numpy and scipy dependencies
+pip install pytest tox
 
 # run all tests
 pytest
+
+# run tests and style check for Python versions 3.5, 3.6, and 3.7, if available.
+tox
 ```
 
 Author: Matthew Flamm
