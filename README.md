@@ -34,7 +34,8 @@ Tests are written using `pytest`. `numpy` and `scipy` must also be installed in 
 It is recommended to use a virtual environment for developing/testing.
 
 ```bash
-cd rtdpy_repo_path
+git clone https://github.com/Merck/rtdpy.git  # or use your forked repo
+cd rtdpy
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .  # will also install numpy and scipy dependencies
