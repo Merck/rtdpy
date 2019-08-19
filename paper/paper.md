@@ -58,7 +58,7 @@ Built-in functionalities for all RTD models include:
 ![Family of N-Cstr models.](../images/ncstr.png?raw=true "N-Cstr RTDs")
 
 ``rtdpy`` is enabled by ``numpy`` and ``scipy`` packages. Documentation on all
-major funcitonality and all RTD models is included in the repository. Several
+major functionality and all RTD models is included in the repository. Several
 examples of common workflows are also provided. The base RTD class is available
 for adding additional functionality. The RTD class can also be extended for
 future or user-defined RTD models.
