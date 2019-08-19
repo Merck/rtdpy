@@ -35,8 +35,8 @@ input signal, frequency-space signal damping, and disturbance mapping.
 of RTD models. Current model functionality is focused on continuous process
 unit operations. RTD models include:
 
-* N-continually stirred tank reactors (NCSTR), AKA tanks-in-series
-* Tube flow with Axial Dispersion
+* N continually stirred tank reactors (NCSTR), AKA tanks-in-series
+* Tube flow with axial dispersion
   * Large Peclet number assumption
   * Open-open boundary conditions
   * Closed-closed boundary conditions
@@ -55,7 +55,7 @@ Built-in functionalities for all RTD models include:
 * Input signal convolution
 * Step response
 
-![Family of N-Cstr models.](../images/ncstr.png?raw=true "N-Cstr RTDs")
+![Family of NCSTR models.](../images/ncstr.png?raw=true "N-Cstr RTDs")
 
 ``rtdpy`` is enabled by ``numpy`` and ``scipy`` packages. Documentation on all
 major functionality and all RTD models is included in the repository. Several
