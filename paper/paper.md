@@ -55,6 +55,20 @@ Built-in functionalities for all RTD models include:
 * Input signal convolution
 * Step response
 
+An example of using ``rtdpy`` is to generate a family of NCSTR models as shown in Figure 1.
+
+```python
+import matplotlib.pyplot as plt
+import rtdpy
+for n in [1, 2, 5, 10, 100]:
+    a = rtdpy.Ncstr(tau=1, n=n, dt=.001, time_end=5)
+    plt.plot(a.time, a.exitage, label="n={}".format(n))
+plt.legend()
+plt.xlabel('Time')
+plt.ylabel('Exit Age Function')
+plt.title('Impulse Responses')
+```
+
 ![Family of NCSTR models.](../images/ncstr.png?raw=true "N-Cstr RTDs")
 
 ``rtdpy`` is enabled by ``numpy`` and ``scipy`` packages. Documentation on all
