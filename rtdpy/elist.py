@@ -1,4 +1,4 @@
-import numpy as np
+from scipy.signal import convolve
 
 from rtdpy.rtd import RTD, RTDInputError
 
@@ -69,7 +69,7 @@ class Elist(RTD):
         """
         exitage = self.elist[0].exitage
         for item in self.elist[1:]:
-            exitage = np.convolve(item.exitage, exitage) * self.dt
+            exitage = convolve(item.exitage, exitage) * self.dt
             exitage = exitage[:len(self.time) or None]
         return exitage
 
