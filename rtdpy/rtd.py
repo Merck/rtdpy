@@ -1,6 +1,7 @@
 """Base RTD Class and Error."""
 import numpy as np
 from scipy.integrate import cumtrapz
+from scipy.signal import convolve
 
 from rtdpy.const import DTTOL
 
@@ -113,7 +114,7 @@ class RTD:
             print('rtd dt:' + str(self.dt))
             raise RTDInputError('Cinput signal time dt does not match RTD dt')
 
-        return np.convolve(inputsignal, self.exitage, mode='full') * self.dt
+        return convolve(inputsignal, self.exitage, mode='full') * self.dt
 
     def funnelplot(self, times, disturbances):
         """
