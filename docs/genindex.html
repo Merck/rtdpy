@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Index &#8212; rtdpy 0.5 documentation</title>
+    <title>Index &#8212; rtdpy 0.5.2 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -99,6 +99,7 @@
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  | <a href="#Z"><strong>Z</strong></a>
  
 </div>
@@ -114,6 +115,8 @@
       <li><a href="AxialDispersion_hi_peclet.html#rtdpy.ad_hi_peclet.AD_hi_peclet">AD_hi_peclet (class in rtdpy.ad_hi_peclet)</a>
 </li>
       <li><a href="AxialDispersion_oo.html#rtdpy.ad_oo.AD_oo">AD_oo (class in rtdpy.ad_oo)</a>
+</li>
+      <li><a href="RTD.html#rtdpy.rtd.RTDInputError.args">args (rtdpy.rtd.RTDInputError attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -156,6 +159,8 @@
 </li>
         <li><a href="Pfr.html#rtdpy.pfr.Pfr.dt">(rtdpy.pfr.Pfr property)</a>
 </li>
+        <li><a href="RTD.html#rtdpy.rtd.RTD.dt">(rtdpy.rtd.RTD property)</a>
+</li>
         <li><a href="Zusatz.html#rtdpy.zusatz.Zusatz.dt">(rtdpy.zusatz.Zusatz property)</a>
 </li>
       </ul></li>
@@ -184,6 +189,8 @@
 </li>
         <li><a href="Pfr.html#rtdpy.pfr.Pfr.exitage">(rtdpy.pfr.Pfr property)</a>
 </li>
+        <li><a href="RTD.html#rtdpy.rtd.RTD.exitage">(rtdpy.rtd.RTD property)</a>
+</li>
         <li><a href="Zusatz.html#rtdpy.zusatz.Zusatz.exitage">(rtdpy.zusatz.Zusatz property)</a>
 </li>
       </ul></li>
@@ -203,6 +210,8 @@
         <li><a href="NCstr.html#rtdpy.ncstr.Ncstr.exitage_norm">(rtdpy.ncstr.Ncstr property)</a>
 </li>
         <li><a href="Pfr.html#rtdpy.pfr.Pfr.exitage_norm">(rtdpy.pfr.Pfr property)</a>
+</li>
+        <li><a href="RTD.html#rtdpy.rtd.RTD.exitage_norm">(rtdpy.rtd.RTD property)</a>
 </li>
         <li><a href="Zusatz.html#rtdpy.zusatz.Zusatz.exitage_norm">(rtdpy.zusatz.Zusatz property)</a>
 </li>
@@ -232,6 +241,8 @@
 </li>
         <li><a href="Pfr.html#rtdpy.pfr.Pfr.frequencyresponse">(rtdpy.pfr.Pfr method)</a>
 </li>
+        <li><a href="RTD.html#rtdpy.rtd.RTD.frequencyresponse">(rtdpy.rtd.RTD method)</a>
+</li>
         <li><a href="Zusatz.html#rtdpy.zusatz.Zusatz.frequencyresponse">(rtdpy.zusatz.Zusatz method)</a>
 </li>
       </ul></li>
@@ -251,6 +262,8 @@
         <li><a href="NCstr.html#rtdpy.ncstr.Ncstr.funnelplot">(rtdpy.ncstr.Ncstr method)</a>
 </li>
         <li><a href="Pfr.html#rtdpy.pfr.Pfr.funnelplot">(rtdpy.pfr.Pfr method)</a>
+</li>
+        <li><a href="RTD.html#rtdpy.rtd.RTD.funnelplot">(rtdpy.rtd.RTD method)</a>
 </li>
         <li><a href="Zusatz.html#rtdpy.zusatz.Zusatz.funnelplot">(rtdpy.zusatz.Zusatz method)</a>
 </li>
@@ -276,6 +289,8 @@
 </li>
         <li><a href="Pfr.html#rtdpy.pfr.Pfr.integral">(rtdpy.pfr.Pfr method)</a>
 </li>
+        <li><a href="RTD.html#rtdpy.rtd.RTD.integral">(rtdpy.rtd.RTD method)</a>
+</li>
         <li><a href="Zusatz.html#rtdpy.zusatz.Zusatz.integral">(rtdpy.zusatz.Zusatz method)</a>
 </li>
       </ul></li>
@@ -299,6 +314,8 @@
         <li><a href="NCstr.html#rtdpy.ncstr.Ncstr.mrt">(rtdpy.ncstr.Ncstr method)</a>
 </li>
         <li><a href="Pfr.html#rtdpy.pfr.Pfr.mrt">(rtdpy.pfr.Pfr method)</a>
+</li>
+        <li><a href="RTD.html#rtdpy.rtd.RTD.mrt">(rtdpy.rtd.RTD method)</a>
 </li>
         <li><a href="Zusatz.html#rtdpy.zusatz.Zusatz.mrt">(rtdpy.zusatz.Zusatz method)</a>
 </li>
@@ -336,6 +353,8 @@
 </li>
         <li><a href="Pfr.html#rtdpy.pfr.Pfr.output">(rtdpy.pfr.Pfr method)</a>
 </li>
+        <li><a href="RTD.html#rtdpy.rtd.RTD.output">(rtdpy.rtd.RTD method)</a>
+</li>
         <li><a href="Zusatz.html#rtdpy.zusatz.Zusatz.output">(rtdpy.zusatz.Zusatz method)</a>
 </li>
       </ul></li>
@@ -363,21 +382,27 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="RTD.html#rtdpy.rtd.RTD">RTD (class in rtdpy.rtd)</a>
+</li>
+      <li><a href="RTD.html#rtdpy.rtd.RTDInputError">RTDInputError</a>
+</li>
       <li><a href="AxialDispersion_cc.html#module-rtdpy.ad_cc">rtdpy.ad_cc (module)</a>
 </li>
       <li><a href="AxialDispersion_hi_peclet.html#module-rtdpy.ad_hi_peclet">rtdpy.ad_hi_peclet (module)</a>
 </li>
       <li><a href="AxialDispersion_oo.html#module-rtdpy.ad_oo">rtdpy.ad_oo (module)</a>
 </li>
-      <li><a href="Convection.html#module-rtdpy.convection">rtdpy.convection (module)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="Convection.html#module-rtdpy.convection">rtdpy.convection (module)</a>
+</li>
       <li><a href="Combinations.html#module-rtdpy.elist">rtdpy.elist (module)</a>
 </li>
       <li><a href="NCstr.html#module-rtdpy.ncstr">rtdpy.ncstr (module)</a>
 </li>
       <li><a href="Pfr.html#module-rtdpy.pfr">rtdpy.pfr (module)</a>
+</li>
+      <li><a href="RTD.html#module-rtdpy.rtd">rtdpy.rtd (module)</a>
 </li>
       <li><a href="Zusatz.html#module-rtdpy.zusatz">rtdpy.zusatz (module)</a>
 </li>
@@ -402,6 +427,8 @@
 </li>
         <li><a href="Pfr.html#rtdpy.pfr.Pfr.sigma">(rtdpy.pfr.Pfr method)</a>
 </li>
+        <li><a href="RTD.html#rtdpy.rtd.RTD.sigma">(rtdpy.rtd.RTD method)</a>
+</li>
         <li><a href="Zusatz.html#rtdpy.zusatz.Zusatz.sigma">(rtdpy.zusatz.Zusatz method)</a>
 </li>
       </ul></li>
@@ -419,6 +446,8 @@
         <li><a href="NCstr.html#rtdpy.ncstr.Ncstr.stepresponse">(rtdpy.ncstr.Ncstr property)</a>
 </li>
         <li><a href="Pfr.html#rtdpy.pfr.Pfr.stepresponse">(rtdpy.pfr.Pfr property)</a>
+</li>
+        <li><a href="RTD.html#rtdpy.rtd.RTD.stepresponse">(rtdpy.rtd.RTD property)</a>
 </li>
         <li><a href="Zusatz.html#rtdpy.zusatz.Zusatz.stepresponse">(rtdpy.zusatz.Zusatz property)</a>
 </li>
@@ -439,6 +468,8 @@
         <li><a href="NCstr.html#rtdpy.ncstr.Ncstr.stepresponse_norm">(rtdpy.ncstr.Ncstr property)</a>
 </li>
         <li><a href="Pfr.html#rtdpy.pfr.Pfr.stepresponse_norm">(rtdpy.pfr.Pfr property)</a>
+</li>
+        <li><a href="RTD.html#rtdpy.rtd.RTD.stepresponse_norm">(rtdpy.rtd.RTD property)</a>
 </li>
         <li><a href="Zusatz.html#rtdpy.zusatz.Zusatz.stepresponse_norm">(rtdpy.zusatz.Zusatz property)</a>
 </li>
@@ -486,6 +517,8 @@
 </li>
         <li><a href="Pfr.html#rtdpy.pfr.Pfr.time">(rtdpy.pfr.Pfr property)</a>
 </li>
+        <li><a href="RTD.html#rtdpy.rtd.RTD.time">(rtdpy.rtd.RTD property)</a>
+</li>
         <li><a href="Zusatz.html#rtdpy.zusatz.Zusatz.time">(rtdpy.zusatz.Zusatz property)</a>
 </li>
       </ul></li>
@@ -506,9 +539,19 @@
 </li>
         <li><a href="Pfr.html#rtdpy.pfr.Pfr.time_end">(rtdpy.pfr.Pfr property)</a>
 </li>
+        <li><a href="RTD.html#rtdpy.rtd.RTD.time_end">(rtdpy.rtd.RTD property)</a>
+</li>
         <li><a href="Zusatz.html#rtdpy.zusatz.Zusatz.time_end">(rtdpy.zusatz.Zusatz property)</a>
 </li>
       </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="RTD.html#rtdpy.rtd.RTDInputError.with_traceback">with_traceback() (rtdpy.rtd.RTDInputError method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -532,7 +575,7 @@
       &copy;Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
