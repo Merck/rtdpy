@@ -8,7 +8,7 @@ sys.path.insert(0,os.path.abspath('..'))
 from rtdpy import __version__
 
 project = 'rtdpy'
-copyright = 'Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA'
+copyright = 'Copyright 2019-2020 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA'
 author = 'Matthew Flamm'
 
 release = __version__
