@@ -92,7 +92,7 @@ class AD_cc(RTD):
     """
 
     def __init__(self, tau, peclet, dt, time_end, nx=200, a=10000, rtol=1e-5,
-                 atol=1e-10, max_step=0.01):
+                 atol=1e-10, max_step=None):
         """Axial Dispersion closed-closed model"""
         super().__init__(dt, time_end)
 
@@ -104,7 +104,10 @@ class AD_cc(RTD):
         self.a = a
         self.rtol = rtol
         self.atol = atol
-        self.max_step = max_step
+        if max_step is None:
+            self.max_step = 2 / nx
+        else:
+            self.max_step = max_step
 
         if tau <= 0:
             raise RTDInputError('tau less than zero')
@@ -124,11 +127,11 @@ class AD_cc(RTD):
         x = np.linspace(0, 1, self.nx)
         u0 = np.zeros(self.nx)
         h = x[1] - x[0]
-        j = jac(0, 0, self.peclet, h, self.nx, self.a)
 
         sol = integrate.solve_ivp(
             fun=lambda t, y: dudt(t, y, self.peclet, h, self.nx, self.a),
-            jac=j, t_span=t_span, y0=u0, method="BDF", dense_output=True,
+            jac=jac(0, u0, self.peclet, h, self.nx, self.a),
+            t_span=t_span, y0=u0, method="BDF", dense_output=True,
             rtol=self.rtol, atol=self.atol, max_step=self.max_step)
         return sol
 

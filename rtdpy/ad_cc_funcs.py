@@ -1,5 +1,6 @@
 """Define PDE for closed-closed Axial Dispersion model."""
 import numpy as np
+from scipy.sparse import csr_matrix
 
 
 def diff_eq(u, pe, h):
@@ -25,9 +26,10 @@ def dudt(t, u, pe, h, n, a):
     * Downstream BC: dC/dz = 0 (z=1)
     """
     tmp = np.empty_like(u)
+
     # Finite difference equations for dimensionless equation
-    for j in range(1, n - 1):
-        tmp[j] = diff_eq(u[j-1:j+2], pe, h)
+    tmp[1:n-1] = (1 / pe / h**2 * (u[0:n - 2] - 2 * u[1:n - 1] + u[2:])
+                  - 1 / (2 * h) * (u[2:] - u[0:n - 2]))
 
     # Ghost node approach for setting upstream boundary condition
     u_us = pe * 2 * h * a * np.exp(-a * t) + u[1] - pe * 2 * h * u[0]
@@ -58,4 +60,4 @@ def jac(t, u, pe, h, n, a):
     # Downstream node with ghost node
     tmp[n - 1, n - 1] = -2 / pe / h ** 2
     tmp[n - 1, n - 2] = 2 / pe / h ** 2
-    return tmp
+    return csr_matrix(tmp)
