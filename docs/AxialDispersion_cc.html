@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Axial Dispersion closed-closed &#8212; rtdpy 0.5.2 documentation</title>
+    <title>Axial Dispersion closed-closed &#8212; rtdpy 0.5.3 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -89,7 +89,7 @@
 <p>Closed-closed axial dispersion model</p>
 <dl class="class">
 <dt id="rtdpy.ad_cc.AD_cc">
-<em class="property">class </em><code class="sig-prename descclassname">rtdpy.ad_cc.</code><code class="sig-name descname">AD_cc</code><span class="sig-paren">(</span><em class="sig-param">tau</em>, <em class="sig-param">peclet</em>, <em class="sig-param">dt</em>, <em class="sig-param">time_end</em>, <em class="sig-param">nx=200</em>, <em class="sig-param">a=10000</em>, <em class="sig-param">rtol=1e-05</em>, <em class="sig-param">atol=1e-10</em>, <em class="sig-param">max_step=0.01</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/ad_cc.html#AD_cc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.ad_cc.AD_cc" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">rtdpy.ad_cc.</code><code class="sig-name descname">AD_cc</code><span class="sig-paren">(</span><em class="sig-param">tau</em>, <em class="sig-param">peclet</em>, <em class="sig-param">dt</em>, <em class="sig-param">time_end</em>, <em class="sig-param">nx=200</em>, <em class="sig-param">a=10000</em>, <em class="sig-param">rtol=1e-05</em>, <em class="sig-param">atol=1e-10</em>, <em class="sig-param">max_step=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/ad_cc.html#AD_cc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.ad_cc.AD_cc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="RTD.html#rtdpy.rtd.RTD" title="rtdpy.rtd.RTD"><code class="xref py py-class docutils literal notranslate"><span class="pre">rtdpy.rtd.RTD</span></code></a></p>
 <p>Create Axial Dispersion with closed-closed boundary conditions
 Residence Time Distribution (RTD) model. <a class="reference internal" href="#ra6f86343c980-1" id="id1">[1]</a> <a class="reference internal" href="#ra6f86343c980-2" id="id2">[2]</a></p>
@@ -327,6 +327,33 @@ pharmaceutical tablets: An industrial perspective.
 
 </dd></dl>
 
+<span class="target" id="module-rtdpy.ad_cc_funcs"></span><p>Define PDE for closed-closed Axial Dispersion model.</p>
+<dl class="function">
+<dt id="rtdpy.ad_cc_funcs.diff_eq">
+<code class="sig-prename descclassname">rtdpy.ad_cc_funcs.</code><code class="sig-name descname">diff_eq</code><span class="sig-paren">(</span><em class="sig-param">u</em>, <em class="sig-param">pe</em>, <em class="sig-param">h</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/ad_cc_funcs.html#diff_eq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.ad_cc_funcs.diff_eq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic difference equation.</p>
+<p>1/pe d^2C/dz^2 - dC/dz</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="rtdpy.ad_cc_funcs.dudt">
+<code class="sig-prename descclassname">rtdpy.ad_cc_funcs.</code><code class="sig-name descname">dudt</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">u</em>, <em class="sig-param">pe</em>, <em class="sig-param">h</em>, <em class="sig-param">n</em>, <em class="sig-param">a</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/ad_cc_funcs.html#dudt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.ad_cc_funcs.dudt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define PDE equation for AD closed-closed</p>
+<p>dC/dTheta = 1/Pe d^2C/dz^2 - dC/dz</p>
+<p>BC’s Danckwerts:</p>
+<ul class="simple">
+<li><p>Upstream BC: -Cin = 1/Pe dC/dz - C  (z=0)
+* Impulse for Cin is approximated by an exponential with parameter a&gt;&gt;1</p></li>
+<li><p>Downstream BC: dC/dz = 0 (z=1)</p></li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="rtdpy.ad_cc_funcs.jac">
+<code class="sig-prename descclassname">rtdpy.ad_cc_funcs.</code><code class="sig-name descname">jac</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">u</em>, <em class="sig-param">pe</em>, <em class="sig-param">h</em>, <em class="sig-param">n</em>, <em class="sig-param">a</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/ad_cc_funcs.html#jac"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.ad_cc_funcs.jac" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define Jacobian for AD closed-closed</p>
+</dd></dl>
+
 </div>
 
 
@@ -337,7 +364,7 @@ pharmaceutical tablets: An industrial perspective.
     <div class="clearer"></div>
   </div>
     <div class="footer">
-      &copy;Copyright 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
+      &copy;Copyright 2019-2020 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
