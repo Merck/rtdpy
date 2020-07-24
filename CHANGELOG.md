@@ -1,3 +1,7 @@
+## 0.6.0
+
+* Add Arbitrary RTD model
+
 ## 0.5.3
 
 * Make Axial Dispersion model much faster.

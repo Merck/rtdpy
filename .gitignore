@@ -11,3 +11,5 @@ lib*/
 scripts/
 dist/
 .tox/
+.vscode/
+venv*
