@@ -1,18 +1,19 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>Zusatz &#8212; rtdpy 0.5.3 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zusatz &#8212; rtdpy 0.6.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Combinations of Models" href="Combinations.html" />
@@ -47,6 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Convection.html">Convection</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Zusatz</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Combinations.html">Combinations of Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Arbitrary.html">Arbitrary RTD Model</a></li>
 </ul>
 
 <div class="relations">
@@ -67,7 +69,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -86,9 +88,9 @@
             
   <div class="section" id="module-rtdpy.zusatz">
 <span id="zusatz"></span><h1>Zusatz<a class="headerlink" href="#module-rtdpy.zusatz" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="rtdpy.zusatz.Zusatz">
-<em class="property">class </em><code class="sig-prename descclassname">rtdpy.zusatz.</code><code class="sig-name descname">Zusatz</code><span class="sig-paren">(</span><em class="sig-param">b</em>, <em class="sig-param">c</em>, <em class="sig-param">dt</em>, <em class="sig-param">time_end</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/zusatz.html#Zusatz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.zusatz.Zusatz" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">rtdpy.zusatz.</code><code class="sig-name descname">Zusatz</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">c</span></em>, <em class="sig-param"><span class="n">dt</span></em>, <em class="sig-param"><span class="n">time_end</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtdpy/zusatz.html#Zusatz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rtdpy.zusatz.Zusatz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="RTD.html#rtdpy.rtd.RTD" title="rtdpy.rtd.RTD"><code class="xref py py-class docutils literal notranslate"><span class="pre">rtdpy.rtd.RTD</span></code></a></p>
 <p>Create Zusatz Residence Time Distribution (RTD) model. <a class="reference internal" href="#r2fa91e0fc818-1" id="id1">[1]</a>
 Parameter a is chosen such that the integral is 1.</p>
@@ -114,14 +116,14 @@ Variance only defined for <code class="docutils literal notranslate"><span class
 </dl>
 <p class="rubric">References</p>
 <dl class="citation">
-<dt class="label" id="r2fa91e0fc818-1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dt class="label" id="r2fa91e0fc818-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Poulesquen A., et al. (2003) A study of residence time distribution
 in co-rotating twin-screw extruders.  Part II: Experimental
 validation. “Polymer Engineering and Science”, 43(12), 1849-1862.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rtdpy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">]:</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">a</span> <span class="o">=</span> <span class="n">rtdpy</span><span class="o">.</span><span class="n">Zusatz</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mi">01</span><span class="p">,</span> <span class="n">time_end</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
@@ -135,45 +137,45 @@ validation. “Polymer Engineering and Science”, 43(12), 1849-1862.</p>
 <div class="figure align-default">
 <img alt="_images/Zusatz-1.png" src="_images/Zusatz-1.png" />
 </div>
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.a">
 <em class="property">property </em><code class="sig-name descname">a</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.a" title="Permalink to this definition">¶</a></dt>
 <dd><p>a parameter that normalizes RTD to 1</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.b">
 <em class="property">property </em><code class="sig-name descname">b</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.b" title="Permalink to this definition">¶</a></dt>
 <dd><p>b parameter</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.c">
 <em class="property">property </em><code class="sig-name descname">c</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.c" title="Permalink to this definition">¶</a></dt>
 <dd><p>c parameter</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.dt">
 <em class="property">property </em><code class="sig-name descname">dt</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.dt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Time step for RTD</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.exitage">
 <em class="property">property </em><code class="sig-name descname">exitage</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.exitage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exit age distribution for RTD</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.exitage_norm">
 <em class="property">property </em><code class="sig-name descname">exitage_norm</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.exitage_norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalized Exit Age Distribtion for RTD</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.frequencyresponse">
-<code class="sig-name descname">frequencyresponse</code><span class="sig-paren">(</span><em class="sig-param">omegas</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.frequencyresponse" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">frequencyresponse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">omegas</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.frequencyresponse" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -190,9 +192,9 @@ validation. “Polymer Engineering and Science”, 43(12), 1849-1862.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.funnelplot">
-<code class="sig-name descname">funnelplot</code><span class="sig-paren">(</span><em class="sig-param">times</em>, <em class="sig-param">disturbances</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.funnelplot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">funnelplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">times</span></em>, <em class="sig-param"><span class="n">disturbances</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.funnelplot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return maximum output signal due to square disturbances.</p>
 <p>Uses method from <a class="reference internal" href="#rbe6c1c3442ca-garcia" id="id3">[Garcia]</a> .
 Also returns meshgrid for times and disturbance inputs
@@ -219,7 +221,7 @@ for ease of plotting.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="citation">
-<dt class="label" id="rbe6c1c3442ca-garcia"><span class="brackets">Garcia</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id4">2</a>)</span></dt>
+<dt class="label" id="rbe6c1c3442ca-garcia"><span class="brackets"><a class="fn-backref" href="#id3">Garcia</a></span></dt>
 <dd><p>Garcia-Munoz S., Butterbaugh A., Leavesley I.,
 Manley L.F., Slade D., Bermingham S. (2018)
 A flowhseet model for the development of a continuous process for
@@ -229,21 +231,21 @@ pharmaceutical tablets: An industrial perspective.
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.integral">
 <code class="sig-name descname">integral</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.integral" title="Permalink to this definition">¶</a></dt>
 <dd><p>Integral of RTD.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.mrt">
 <code class="sig-name descname">mrt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.mrt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mean residence time of RTD.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.output">
-<code class="sig-name descname">output</code><span class="sig-paren">(</span><em class="sig-param">inputtime</em>, <em class="sig-param">inputsignal</em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.output" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">output</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inputtime</span></em>, <em class="sig-param"><span class="n">inputsignal</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convolves input signal with RTD</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -263,31 +265,31 @@ pharmaceutical tablets: An industrial perspective.
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.sigma">
 <code class="sig-name descname">sigma</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rtdpy.zusatz.Zusatz.sigma" title="Permalink to this definition">¶</a></dt>
 <dd><p>Variance of RTD.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.stepresponse">
 <em class="property">property </em><code class="sig-name descname">stepresponse</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.stepresponse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step respose of RTD</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.stepresponse_norm">
 <em class="property">property </em><code class="sig-name descname">stepresponse_norm</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.stepresponse_norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalized step respose of RTD</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.time">
 <em class="property">property </em><code class="sig-name descname">time</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Time points for exitage function.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="rtdpy.zusatz.Zusatz.time_end">
 <em class="property">property </em><code class="sig-name descname">time_end</code><a class="headerlink" href="#rtdpy.zusatz.Zusatz.time_end" title="Permalink to this definition">¶</a></dt>
 <dd><p>Last time point for RTD</p>
@@ -308,7 +310,7 @@ pharmaceutical tablets: An industrial perspective.
       &copy;Copyright 2019-2020 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

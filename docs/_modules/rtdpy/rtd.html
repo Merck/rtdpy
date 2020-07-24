@@ -1,18 +1,19 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>rtdpy.rtd &#8212; rtdpy 0.5.3 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rtdpy.rtd &#8212; rtdpy 0.6.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
    
@@ -45,6 +46,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../Convection.html">Convection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Zusatz.html">Zusatz</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Combinations.html">Combinations of Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Arbitrary.html">Arbitrary RTD Model</a></li>
 </ul>
 
 <div class="relations">
@@ -65,7 +67,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -91,12 +93,12 @@
 <span class="kn">from</span> <span class="nn">rtdpy.const</span> <span class="k">import</span> <span class="n">DTTOL</span>
 
 
-<div class="viewcode-block" id="RTDInputError"><a class="viewcode-back" href="../../RTD.html#rtdpy.ad_cc.RTDInputError">[docs]</a><span class="k">class</span> <span class="nc">RTDInputError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="RTDInputError"><a class="viewcode-back" href="../../RTD.html#rtdpy.arbitrary.RTDInputError">[docs]</a><span class="k">class</span> <span class="nc">RTDInputError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Errors for RTD inputs.&quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="RTD"><a class="viewcode-back" href="../../RTD.html#rtdpy.ad_cc.RTD">[docs]</a><span class="k">class</span> <span class="nc">RTD</span><span class="p">:</span>
+<div class="viewcode-block" id="RTD"><a class="viewcode-back" href="../../RTD.html#rtdpy.arbitrary.RTD">[docs]</a><span class="k">class</span> <span class="nc">RTD</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for RTD analysis</span>
 
@@ -152,26 +154,26 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_end</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
 
-<div class="viewcode-block" id="RTD.integral"><a class="viewcode-back" href="../../RTD.html#rtdpy.ad_cc.RTD.integral">[docs]</a>    <span class="k">def</span> <span class="nf">integral</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RTD.integral"><a class="viewcode-back" href="../../RTD.html#rtdpy.arbitrary.RTD.integral">[docs]</a>    <span class="k">def</span> <span class="nf">integral</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Integral of RTD.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exitage</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RTD.mrt"><a class="viewcode-back" href="../../RTD.html#rtdpy.ad_cc.RTD.mrt">[docs]</a>    <span class="k">def</span> <span class="nf">mrt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RTD.mrt"><a class="viewcode-back" href="../../RTD.html#rtdpy.arbitrary.RTD.mrt">[docs]</a>    <span class="k">def</span> <span class="nf">mrt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mean residence time of RTD.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exitage</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RTD.sigma"><a class="viewcode-back" href="../../RTD.html#rtdpy.ad_cc.RTD.sigma">[docs]</a>    <span class="k">def</span> <span class="nf">sigma</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RTD.sigma"><a class="viewcode-back" href="../../RTD.html#rtdpy.arbitrary.RTD.sigma">[docs]</a>    <span class="k">def</span> <span class="nf">sigma</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Variance of RTD.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">tbar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mrt</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exitage</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">-</span> <span class="n">tbar</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RTD.output"><a class="viewcode-back" href="../../RTD.html#rtdpy.ad_cc.RTD.output">[docs]</a>    <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputtime</span><span class="p">,</span> <span class="n">inputsignal</span><span class="p">):</span>
+<div class="viewcode-block" id="RTD.output"><a class="viewcode-back" href="../../RTD.html#rtdpy.arbitrary.RTD.output">[docs]</a>    <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputtime</span><span class="p">,</span> <span class="n">inputsignal</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convolves input signal with RTD</span>
 
@@ -201,7 +203,7 @@
 
         <span class="k">return</span> <span class="n">convolve</span><span class="p">(</span><span class="n">inputsignal</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exitage</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span></div>
 
-<div class="viewcode-block" id="RTD.funnelplot"><a class="viewcode-back" href="../../RTD.html#rtdpy.ad_cc.RTD.funnelplot">[docs]</a>    <span class="k">def</span> <span class="nf">funnelplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">disturbances</span><span class="p">):</span>
+<div class="viewcode-block" id="RTD.funnelplot"><a class="viewcode-back" href="../../RTD.html#rtdpy.arbitrary.RTD.funnelplot">[docs]</a>    <span class="k">def</span> <span class="nf">funnelplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">disturbances</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return maximum output signal due to square disturbances.</span>
 
@@ -258,7 +260,7 @@
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">disturbances</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">response</span></div>
 
-<div class="viewcode-block" id="RTD.frequencyresponse"><a class="viewcode-back" href="../../RTD.html#rtdpy.ad_cc.RTD.frequencyresponse">[docs]</a>    <span class="k">def</span> <span class="nf">frequencyresponse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">omegas</span><span class="p">):</span>
+<div class="viewcode-block" id="RTD.frequencyresponse"><a class="viewcode-back" href="../../RTD.html#rtdpy.arbitrary.RTD.frequencyresponse">[docs]</a>    <span class="k">def</span> <span class="nf">frequencyresponse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">omegas</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -292,7 +294,7 @@
       &copy;Copyright 2019-2020 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
