@@ -1,4 +1,5 @@
 """init file for rtdpy"""
+from .arbitrary import Arbitrary
 from .ncstr import Ncstr
 from .pfr import Pfr
 from .ad_oo import AD_oo

@@ -19,6 +19,7 @@ Included RTD models:
    Convection
    Zusatz
    Combinations
+   Arbitrary
 
 
 Functionality
