@@ -20,6 +20,7 @@ Included RTD models:
    Zusatz
    Combinations
    Arbitrary
+   RTD
 
 
 Functionality
@@ -49,7 +50,7 @@ Step responses are immediately available
    plt.ylabel('Exit Age Function')
    plt.title('Step Response')
    plt.legend()
-   
+
 
 Combining two models together into a new model is simple
 
@@ -74,7 +75,7 @@ Integral, mean residence time, and variance are easily obtained
    sigma = a.sigma()
 
    print(f'Integral            = {integral: .2f}\n'
-         f'Mean residence time = {mrt: .2f}\n'	
+         f'Mean residence time = {mrt: .2f}\n'
 	 f'Variance            = {sigma: .2f}')
 
 We can predict output signals from input signals
@@ -87,7 +88,7 @@ We can predict output signals from input signals
    input_signal = np.zeros(signal_time.size)
    input_signal[10:30] = 1
    output_signal = a.output(signal_time, input_signal)
-   
+
    # predicted output_signal is longer than input_signal
    plt.plot(signal_time, input_signal, label='Input Signal')
    plt.plot(signal_time, output_signal[:signal_time.size],
@@ -116,7 +117,7 @@ Make a funnelplot for input disturbances
    times = np.linspace(1, 60, 10)
    disturbances = np.linspace(-100, 100, 10)
    x, y, response = a.funnelplot(times, disturbances)
-   
+
    cs = plt.contour(x, y, response)
    plt.clabel(cs, fmt='%1.0f')
    plt.xlabel('Time of Disturbance')
@@ -127,26 +128,26 @@ Fit RTD measurement data
 
 .. plot::
 
-   from scipy import optimize 
-   
-   # Generate noisy data from NCSTR system with tau=10 and n=2 
-   a = rtdpy.Ncstr(tau=10, n=2, dt=1, time_end=50) 
-   xdata = a.time 
-   noisefactor = 0.01 
+   from scipy import optimize
+
+   # Generate noisy data from NCSTR system with tau=10 and n=2
+   a = rtdpy.Ncstr(tau=10, n=2, dt=1, time_end=50)
+   xdata = a.time
+   noisefactor = 0.01
    ydata = a.exitage \
-       + (noisefactor * (np.random.rand(a.time.size) - 0.5)) 
-   
-   def f(xdata, tau, n): 
-       a = rtdpy.Ncstr(tau=tau, n=n, dt=1, time_end=50) 
-       return a.exitage 
-   
+       + (noisefactor * (np.random.rand(a.time.size) - 0.5))
+
+   def f(xdata, tau, n):
+       a = rtdpy.Ncstr(tau=tau, n=n, dt=1, time_end=50)
+       return a.exitage
+
    # Give initial guess of tau=5 and n=4
    popt, pcov = optimize.curve_fit(f, xdata, ydata, p0=[5, 4],
-                                   bounds=(0, np.inf)) 
-   plt.plot(xdata, ydata, label='Impulse Experiment') 
-   b = rtdpy.Ncstr(tau=popt[0], n=popt[1], dt=1, time_end=50) 
-   plt.plot(xdata, b.exitage, label='RTD Fit') 
-   plt.title(f'tau={popt[0]: .2f}, n={popt[1]: .2f}') 
+                                   bounds=(0, np.inf))
+   plt.plot(xdata, ydata, label='Impulse Experiment')
+   b = rtdpy.Ncstr(tau=popt[0], n=popt[1], dt=1, time_end=50)
+   plt.plot(xdata, b.exitage, label='RTD Fit')
+   plt.title(f'tau={popt[0]: .2f}, n={popt[1]: .2f}')
    plt.legend()
 
 Author: Matthew Flamm
