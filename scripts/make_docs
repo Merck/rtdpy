@@ -1,0 +1,7 @@
+#!/bin/bash
+make clean html
+rm -r docs/doctrees docs/plot_directive
+mv docs/html/* docs/
+rm docs/*.pdf
+rm -r docs/html/
+touch docs/.nojekyll
