@@ -12,3 +12,5 @@ dist/
 .tox/
 .vscode/
 venv*
+docs/.buildinfo
+docs/.doctrees
