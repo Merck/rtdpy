@@ -2,7 +2,7 @@
 
 Residence Time Distribution modeling in Python.
 
-[https://merck.github.com/rtdpy](https://merck.github.io/rtdpy/)
+[https://merck.github.io/rtdpy](https://merck.github.io/rtdpy/)
 
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.01621/status.svg)](https://doi.org/10.21105/joss.01621)
 
