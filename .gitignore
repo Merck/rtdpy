@@ -14,3 +14,4 @@ dist/
 venv*
 docs/.buildinfo
 docs/.doctrees
+_version.py
