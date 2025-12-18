@@ -1,6 +1,6 @@
 """Base RTD Class and Error."""
 import numpy as np
-from scipy.integrate import cumtrapz
+from scipy.integrate import cumulative_trapezoid
 from scipy.signal import convolve
 
 from rtdpy.const import DTTOL
@@ -43,12 +43,12 @@ class RTD:
     @property
     def stepresponse(self):
         """Step respose of RTD"""
-        return cumtrapz(self.exitage, self.time, initial=0)
+        return cumulative_trapezoid(self.exitage, self.time, initial=0)
 
     @property
     def stepresponse_norm(self):
         """Normalized step respose of RTD"""
-        return cumtrapz(self.exitage_norm, self.time, initial=0)
+        return cumulative_trapezoid(self.exitage_norm, self.time, initial=0)
 
     @property
     def dt(self):
