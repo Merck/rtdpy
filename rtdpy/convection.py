@@ -66,7 +66,7 @@ class Convection(RTD):
 
     def _calc_exitage(self):
         """Calculte exit age function."""
-        time_safe = np.clip(self.time, np.finfo(np.float).eps, None)
+        time_safe = np.clip(self.time, np.finfo(np.float64).eps, None)
         output = self.tau**2 / (2 * time_safe**3)
         mintime = self.tau / 2
         output[self.time < mintime] = 0.
@@ -74,7 +74,7 @@ class Convection(RTD):
 
     def _calc_exitage_star(self):
         """Calculte exit age function."""
-        time_safe = np.clip(self.time, np.finfo(np.float).eps, None)
+        time_safe = np.clip(self.time, np.finfo(np.float64).eps, None)
         output = self.tau / (2 * time_safe**2)
         mintime = self.tau/2
         output[self.time < mintime] = 0.
@@ -87,7 +87,7 @@ class Convection(RTD):
 
     def _calc_exitage_star2(self):
         """Calculte exit age function."""
-        time_safe = np.clip(self.time, np.finfo(np.float).eps, None)
+        time_safe = np.clip(self.time, np.finfo(np.float64).eps, None)
         output = 1. / (2 * time_safe)
         mintime = self.tau/2
         output[self.time < mintime] = 0.

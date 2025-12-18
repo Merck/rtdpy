@@ -13,14 +13,17 @@ authors = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "numpy<1.24",
-    "scipy<1.14",
+    "numpy>=1.23.0",
+    "scipy>=1.6.0",
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "License :: OSI Approved :: MIT License",
     "Topic :: Scientific/Engineering",
 ]
@@ -39,8 +42,8 @@ include = ["rtdpy*"]
 
 [project.optional-dependencies]
 dev = [
-    "numpy==1.23.5",
-    "scipy==1.13.1",
+    "numpy==2.3.5",
+    "scipy==1.16.3",
     "pytest>=7.0",
     "pytest-cov>=4.0",
     "ruff>=0.1.0",
