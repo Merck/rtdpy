@@ -48,6 +48,13 @@ dev = [
     "pytest-cov>=4.0",
     "ruff>=0.1.0",
 ]
+dev-min = [
+    "numpy==1.23.0",
+    "scipy==1.6.0",
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.1.0",
+]
 docs = [
     "sphinx",
     "numpydoc>=1.0.0",
