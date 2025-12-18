@@ -1,7 +1,0 @@
-sphinx
-# pin numpydoc due to reference issues in 0.9.x
-numpydoc>=1.0.0
-matplotlib
-ipython
-scipy
-numpy

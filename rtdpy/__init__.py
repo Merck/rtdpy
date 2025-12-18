@@ -9,4 +9,8 @@ from .ad_cc import AD_cc
 from .ad_hi_peclet import AD_hi_peclet
 from .convection import Convection
 from .rtd import RTDInputError, RTD
-from .version import __version__
+
+try:
+    from ._version import __version__
+except ImportError:
+    __version__ = "unknown"

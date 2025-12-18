@@ -1,0 +1,109 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rtdpy"
+dynamic = ["version"]
+description = "Python package for residence time distribution analysis"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Matthew Flamm", email = "matthew.flamm@merck.com"}
+]
+requires-python = ">=3.10"
+dependencies = [
+    "numpy<1.24",
+    "scipy<1.14",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering",
+]
+
+[project.urls]
+Homepage = "https://merck.github.io/rtdpy"
+Repository = "https://github.com/Merck/rtdpy"
+Documentation = "https://merck.github.io/rtdpy"
+
+[tool.setuptools_scm]
+version_file = "rtdpy/_version.py"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["rtdpy*"]
+
+[project.optional-dependencies]
+dev = [
+    "numpy==1.23.5",
+    "scipy==1.13.1",
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.1.0",
+]
+docs = [
+    "sphinx",
+    "numpydoc>=1.0.0",
+    "matplotlib",
+    "ipython",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "--cov=rtdpy",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--strict-markers",
+]
+markers = []
+
+[tool.coverage.run]
+source = ["rtdpy"]
+omit = [
+    "*/tests/*",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.ruff]
+line-length = 89
+target-version = "py310"
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "build",
+    "dist",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+]
+ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]  # Allow unused imports in __init__.py
