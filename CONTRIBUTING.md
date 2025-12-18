@@ -16,7 +16,7 @@ print(scipy.__version__, numpy.__version__, rtdpy.__version__, sys.version_info)
 
 ## Implementing a new RTD model
 
-See [NCstr model](https://github.com/Merck/rtdpy/blob/master/rtdpy/ncstr.py)
+See [NCstr model](https://github.com/Merck/rtdpy/blob/main/rtdpy/ncstr.py)
 for a simple example.
 
 * The base RTD class should be inherited, i.e. `class NewRTD(RTD):`. The RTD
@@ -38,6 +38,6 @@ for a simple example.
 
 * All API documentation is done in the class/method docstrings.
 * The tutorial documentation is written in
-  [index.rst](https://github.com/Merck/rtdpy/blob/master/source/index.rst).
+  [index.rst](https://github.com/Merck/rtdpy/blob/main/source/index.rst).
 * The requirements for building the documentation with sphinx are in
   requirements_docs.txt.
